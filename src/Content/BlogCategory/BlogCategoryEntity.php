@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Werkl\OpenBlogware\Content\BlogCategory;
@@ -14,6 +15,8 @@ class BlogCategoryEntity extends Entity
     use EntityIdTrait;
 
     protected ?string $parentId = null;
+
+    protected ?string $parentVersionId = null;
 
     protected ?string $afterCategoryId = null;
 
@@ -70,6 +73,16 @@ class BlogCategoryEntity extends Entity
     public function setParentId(?string $parentId): void
     {
         $this->parentId = $parentId;
+    }
+
+    public function getParentVersionId(): ?string
+    {
+        return $this->parentVersionId;
+    }
+
+    public function setParentVersionId(?string $parentVersionId): void
+    {
+        $this->parentVersionId = $parentVersionId;
     }
 
     public function getAfterCategoryId(): ?string

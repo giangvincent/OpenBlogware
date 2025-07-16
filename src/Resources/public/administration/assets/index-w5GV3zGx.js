@@ -1,0 +1,2 @@
+const i=`{% block werkl_cms_preview_newest_listing %} <div class="werkl-cms-preview-newest-listing"> <div class="werkl-cms-preview-newest-listing-item"> <h2> {{ $tc('werkl-blog.blocks.blog.newestListing.previewTitle') }} </h2> <div> <div></div> <div></div> </div> <div> <div></div> <div></div> </div> </div> </div> {% endblock %}`,e={template:i};export{e as default};
+//# sourceMappingURL=index-w5GV3zGx.js.map

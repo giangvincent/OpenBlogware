@@ -24,7 +24,7 @@
         <template #smart-bar-actions>
             {% block werkl_blog_list_smart_bar_actions_add %}
             <mt-button
-                :router-link="{ name: 'blog.module.create' }"
+                @click="$router.push({ name: 'blog.module.create' })"
                 variant="primary"
             >
                 {{ $tc('werkl-blog.list.buttonAddBlogEntry') }}
@@ -32,17 +32,11 @@
             {% endblock %}
         </template>
         {% endblock %}
-        <template #sidebar>
-            <werkl-blog-vertical-tabs/>
-        </template>
+      
 
         <template #side-content>
             {% block werkl_blog_category_side_content %}
-            <werkl-blog-category-tree
-                :categoryId="categoryId"
-                :currentLanguageId="currentLanguageId"
-                @update:categoryId="changeCategoryId"
-            />
+           
             {% endblock %}
         </template>
 

@@ -19,10 +19,7 @@ export default {
         };
     },
     computed: {
-        // blogCategoryRepository() {
-        //     return this.repositoryFactory.create('werkl_blog_category');
-        // },
-
+      
         // blogListingSelectContext() {
         //     const context = Object.assign({}, Shopware.Context.api);
         //     context.inheritance = true;

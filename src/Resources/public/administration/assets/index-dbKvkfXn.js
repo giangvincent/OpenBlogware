@@ -1,0 +1,2 @@
+const t=`<mt-tabs isVertical :defaultItem="defaultItem" :small="false" class="sw-blog__tabs" @new-item-active="onChangeTab" position-identifier="blog-vertical-tabs" :items="[{'label':'{{ $tc('werkl-blog.general.mainMenuItemList') }}','name':'blog'},{'label':'{{ $tc('werkl-blog-author.general.mainMenuItemList') }}','name':'author'}]" > </mt-tabs>`,a={template:t,props:{defaultItem:{type:String,default:"blog"}},methods:{onChangeTab(e){this.currentTab=e}}};export{a as default};
+//# sourceMappingURL=index-dbKvkfXn.js.map
