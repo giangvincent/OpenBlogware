@@ -13,14 +13,17 @@ use Werkl\OpenBlogware\Page\Blog\BlogPageLoader;
 /**
  * Blog detail page controller
  */
-#[\Symfony\Component\Routing\Attribute\Route(defaults: ['_routeScope' => ['storefront']])]
+#[Route(defaults: ['_routeScope' => ['storefront']])]
 class BlogController extends StorefrontController
 {
-    public function __construct(private readonly BlogPageLoader $blogPageLoader)
+    private BlogPageLoader $blogPageLoader;
+
+    public function __construct(BlogPageLoader $blogPageLoader)
     {
+        $this->blogPageLoader = $blogPageLoader;
     }
 
-    #[\Symfony\Component\Routing\Attribute\Route(path: '/werkl_blog/{articleId}', name: 'werkl.frontend.blog.detail', methods: ['GET'])]
+    #[Route(path: '/werkl_blog/{articleId}', name: 'werkl.frontend.blog.detail', methods: ['GET'])]
     public function detailAction(Request $request, SalesChannelContext $context): Response
     {
         $page = $this->blogPageLoader->load($request, $context);

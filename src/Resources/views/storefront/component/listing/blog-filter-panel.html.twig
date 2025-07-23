@@ -33,5 +33,19 @@
                 {% endif %}
             {% endif %}
         {% endblock %}
+
+        {% block component_filter_panel_item_tags %}
+            {% set tags = listing.aggregations.get('tags') %}
+            {% if tags and not tags.entities is empty %}
+                {% set tagsSorted = tags.entities|sort((a, b) => a.name|lower > b.name|lower) %}
+
+                {% sw_include '@Storefront/storefront/component/listing/filter/blog-filter-multi-select.html.twig' with {
+                    elements: tagsSorted,
+                    sidebar: sidebar,
+                    name: 'tags',
+                    displayName: 'werkl-blog.listing.filterBlogTagsDisplayName'|trans|sw_sanitize
+                } %}
+            {% endif %}
+        {% endblock %}
     </div>
 {% endblock %}

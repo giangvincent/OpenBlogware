@@ -17,8 +17,28 @@ use Shopware\Core\Framework\Uuid\Uuid;
 
 class BlogCategoryIndexer extends EntityIndexer
 {
-    public function __construct(private readonly Connection $connection, private readonly IteratorFactory $iteratorFactory, private readonly EntityRepository $repository, private readonly ChildCountUpdater $childCountUpdater, private readonly TreeUpdater $treeUpdater)
-    {
+    private Connection $connection;
+
+    private EntityRepository $repository;
+
+    private ChildCountUpdater $childCountUpdater;
+
+    private TreeUpdater $treeUpdater;
+
+    private IteratorFactory $iteratorFactory;
+
+    public function __construct(
+        Connection $connection,
+        IteratorFactory $iteratorFactory,
+        EntityRepository $repository,
+        ChildCountUpdater $childCountUpdater,
+        TreeUpdater $treeUpdater
+    ) {
+        $this->repository = $repository;
+        $this->childCountUpdater = $childCountUpdater;
+        $this->treeUpdater = $treeUpdater;
+        $this->connection = $connection;
+        $this->iteratorFactory = $iteratorFactory;
     }
 
     public function getName(): string

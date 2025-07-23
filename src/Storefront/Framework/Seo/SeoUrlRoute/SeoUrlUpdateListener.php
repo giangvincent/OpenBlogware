@@ -16,11 +16,19 @@ use Werkl\OpenBlogware\Content\Blog\Events\BlogIndexerEvent;
 
 class SeoUrlUpdateListener implements EventSubscriberInterface
 {
+    private SeoUrlUpdater $seoUrlUpdater;
+
+    private EntityRepository $blogRepository;
+
     /**
      * @internal
      */
-    public function __construct(private readonly SeoUrlUpdater $seoUrlUpdater, private readonly EntityRepository $blogRepository)
-    {
+    public function __construct(
+        SeoUrlUpdater $seoUrlUpdater,
+        EntityRepository $blogRepository
+    ) {
+        $this->seoUrlUpdater = $seoUrlUpdater;
+        $this->blogRepository = $blogRepository;
     }
 
     public static function getSubscribedEvents(): array

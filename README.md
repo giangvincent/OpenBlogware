@@ -2,6 +2,8 @@
 
 # OpenBlogware - Shopware 6 Blog Plugin
 
+[![Sponsor](https://img.shields.io/badge/Sponsor-%E2%9D%A4-ff69b4?logo=github&style=for-the-badge)](https://github.com/sponsors/7underlines)
+
 **Note:** This plugin is currently not compatible with Shopware 6.7.0.0-rc1 or later.
 
 After the plugin installation you can find the entity if you hop to `content -> blog`.
@@ -78,6 +80,12 @@ bin/console plugin:install --activate WerklOpenBlogware
 ```sh
 bin/console cache:clear
 ```
+
+## 🙏 Support
+
+If you find this plugin useful, consider supporting me on [GitHub Sponsors](https://github.com/sponsors/7underlines)!
+
+Your support helps me maintain and improve this project. Thank you! 💜
 
 ## Credits
 

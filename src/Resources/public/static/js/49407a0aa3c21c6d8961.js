@@ -1,1 +1,0 @@
-"use strict";(window["webpackJsonpPluginwerkl-open-blogware"]=window["webpackJsonpPluginwerkl-open-blogware"]||[]).push([[622],{7622:function(l,e,n){n.r(e),n.d(e,{default:function(){return o}});var o={template:'{% block werkl_cms_block_detail %}\r\n<div class="werkl-cms-block-detail">\r\n    <slot name="blogDetail"></slot>\r\n</div>\r\n{% endblock %}\r\n'}}}]);

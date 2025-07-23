@@ -13,19 +13,19 @@ class BlogCategoryEntity extends Entity
 {
     use EntityIdTrait;
 
-    protected ?string $parentId = null;
+    protected ?string $parentId;
 
-    protected ?string $afterCategoryId = null;
+    protected ?string $afterCategoryId;
 
-    protected ?int $level = null;
+    protected ?int $level;
 
-    protected ?string $path = null;
+    protected ?string $path;
 
-    protected ?int $childCount = null;
+    protected ?int $childCount;
 
     protected ?string $name = null;
 
-    protected ?array $customFields = null;
+    protected ?array $customFields;
 
     /**
      * @var self|null

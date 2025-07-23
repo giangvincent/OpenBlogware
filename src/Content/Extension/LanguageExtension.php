@@ -27,6 +27,11 @@ class LanguageExtension extends EntityExtension
         );
     }
 
+    public function getDefinitionClass(): string
+    {
+        return LanguageDefinition::class;
+    }
+
     public function getEntityName(): string
     {
         return LanguageDefinition::ENTITY_NAME;

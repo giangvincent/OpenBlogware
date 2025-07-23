@@ -14,8 +14,20 @@ use Werkl\OpenBlogware\Content\Blog\Events\BlogIndexerEvent;
 
 class BlogEntitiesIndexer extends EntityIndexer
 {
-    public function __construct(private readonly EventDispatcherInterface $eventDispatcher, private readonly IteratorFactory $iteratorFactory, private readonly EntityRepository $repository)
-    {
+    private EventDispatcherInterface $eventDispatcher;
+
+    private IteratorFactory $iteratorFactory;
+
+    private EntityRepository $repository;
+
+    public function __construct(
+        EventDispatcherInterface $eventDispatcher,
+        IteratorFactory $iteratorFactory,
+        EntityRepository $repository
+    ) {
+        $this->eventDispatcher = $eventDispatcher;
+        $this->iteratorFactory = $iteratorFactory;
+        $this->repository = $repository;
     }
 
     public function getName(): string

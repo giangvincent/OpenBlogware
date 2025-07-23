@@ -14,19 +14,23 @@ use Werkl\OpenBlogware\Page\Search\BlogSearchPageLoader;
 /**
  * Blog search controllers
  */
-#[\Symfony\Component\Routing\Attribute\Route(defaults: ['_routeScope' => ['storefront']])]
+#[Route(defaults: ['_routeScope' => ['storefront']])]
 class BlogSearchController extends StorefrontController
 {
-    public function __construct(private readonly BlogSearchPageLoader $blogSearchPageLoader)
-    {
+    private BlogSearchPageLoader $blogSearchPageLoader;
+
+    public function __construct(
+        BlogSearchPageLoader $blogSearchPageLoader
+    ) {
+        $this->blogSearchPageLoader = $blogSearchPageLoader;
     }
 
-    #[\Symfony\Component\Routing\Attribute\Route(path: '/werkl_blog_search', name: 'werkl.frontend.blog.search', methods: ['GET'])]
+    #[Route(path: '/werkl_blog_search', name: 'werkl.frontend.blog.search', methods: ['GET'])]
     public function search(Request $request, SalesChannelContext $context): Response
     {
         try {
             $page = $this->blogSearchPageLoader->load($request, $context);
-        } catch (RoutingException) {
+        } catch (RoutingException $routingException) {
             return $this->forwardToRoute('frontend.home.page');
         }
 
@@ -36,7 +40,7 @@ class BlogSearchController extends StorefrontController
     /**
      * @throws RoutingException
      */
-    #[\Symfony\Component\Routing\Attribute\Route(path: '/widgets/blog-search', name: 'widgets.blog.search.pagelet', methods: ['GET', 'POST'], defaults: ['XmlHttpRequest' => true])]
+    #[Route(path: '/widgets/blog-search', name: 'widgets.blog.search.pagelet', methods: ['GET', 'POST'], defaults: ['XmlHttpRequest' => true])]
     public function ajax(Request $request, SalesChannelContext $context): Response
     {
         $request->request->set('no-aggregations', true);

@@ -146,6 +146,7 @@ class BlogSubscriber implements EventSubscriberInterface
         $filters = new FilterCollection();
         $filters->add($this->getCategoriesFilter($request));
         $filters->add($this->getAuthorsFilter($request));
+        $filters->add($this->getTagsFilter($request));
 
         return $filters;
     }
@@ -176,6 +177,21 @@ class BlogSubscriber implements EventSubscriberInterface
                 new EntityAggregation('authors', 'authorId', 'werkl_blog_author'),
             ],
             new EqualsAnyFilter('authorId', $ids),
+            $ids
+        );
+    }
+
+    private function getTagsFilter(Request $request): Filter
+    {
+        $ids = $this->getFilterByCustomIds('tags', $request);
+
+        return new Filter(
+            'tags',
+            !empty($ids),
+            [
+                new EntityAggregation('tags', 'tags.id', 'tag'),
+            ],
+            new EqualsAnyFilter('tags.id', $ids),
             $ids
         );
     }

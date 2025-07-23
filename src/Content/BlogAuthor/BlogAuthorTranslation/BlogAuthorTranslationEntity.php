@@ -10,11 +10,11 @@ class BlogAuthorTranslationEntity extends TranslationEntity
 {
     protected string $werklBlogAuthorId;
 
-    protected ?BlogAuthorEntity $werklBlogAuthor = null;
+    protected ?BlogAuthorEntity $werklBlogAuthor;
 
     protected string $description;
 
-    protected ?array $customFields = null;
+    protected ?array $customFields;
 
     public function getWerklBlogAuthorId(): string
     {

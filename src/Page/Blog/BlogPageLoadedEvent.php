@@ -9,8 +9,11 @@ use Symfony\Component\HttpFoundation\Request;
 
 class BlogPageLoadedEvent extends PageLoadedEvent
 {
-    public function __construct(protected BlogPage $page, SalesChannelContext $salesChannelContext, Request $request)
+    protected BlogPage $page;
+
+    public function __construct(BlogPage $page, SalesChannelContext $salesChannelContext, Request $request)
     {
+        $this->page = $page;
         parent::__construct($salesChannelContext, $request);
     }
 

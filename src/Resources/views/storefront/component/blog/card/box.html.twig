@@ -55,7 +55,10 @@
                     {% endblock %}
                 </div>
                 {% block werkl_blog_card_teaser %}
-                    <p class="card-text font-size-small mb-0">{{ article.translated.teaser }}</p>
+                    {# Display teaser only if it is filled #}
+                    {% if article.translated.teaser is not empty %}
+                        <p class="card-text font-size-small mb-0">{{ article.translated.teaser }}</p>
+                    {% endif %}
                 {% endblock %}
             </div>
         {% endblock %}

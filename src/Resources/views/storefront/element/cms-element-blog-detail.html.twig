@@ -19,7 +19,7 @@
                 <div class="col-12 werkl-blog-detail-article">
 
                     {% block werkl_blog_detail_article_teaser_image %}
-                        {% if element.data.detailTeaserImage %}
+                        {% if element.data.detailTeaserImage and element.data.media %}
                             {% set attributes = {
                                 'class': 'blog-image-teaser card-img-top mb-3',
                                 'alt': (element.data.media.translated.alt ?: element.data.media.fileName),

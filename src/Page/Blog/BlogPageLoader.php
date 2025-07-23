@@ -21,8 +21,28 @@ use Werkl\OpenBlogware\Content\Blog\BlogEntriesEntity;
 
 class BlogPageLoader
 {
-    public function __construct(private readonly SystemConfigService $systemConfigService, private readonly GenericPageLoaderInterface $genericLoader, private readonly EventDispatcherInterface $eventDispatcher, private readonly SalesChannelCmsPageLoaderInterface $cmsPageLoader, private readonly EntityRepository $blogRepository)
-    {
+    private SystemConfigService $systemConfigService;
+
+    private GenericPageLoaderInterface $genericLoader;
+
+    private EventDispatcherInterface $eventDispatcher;
+
+    private SalesChannelCmsPageLoaderInterface $cmsPageLoader;
+
+    private EntityRepository $blogRepository;
+
+    public function __construct(
+        SystemConfigService $systemConfigService,
+        GenericPageLoaderInterface $genericLoader,
+        EventDispatcherInterface $eventDispatcher,
+        SalesChannelCmsPageLoaderInterface $cmsPageLoader,
+        EntityRepository $blogRepository
+    ) {
+        $this->systemConfigService = $systemConfigService;
+        $this->genericLoader = $genericLoader;
+        $this->eventDispatcher = $eventDispatcher;
+        $this->cmsPageLoader = $cmsPageLoader;
+        $this->blogRepository = $blogRepository;
     }
 
     /**

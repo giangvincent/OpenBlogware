@@ -27,7 +27,8 @@
             "emptyResultMessage": "Wir konnten leider keine Suchergebnisse finden ...",
             "filterPanelResetAll": "Zurück setzen",
             "filterBlogCategoriesDisplayName": "Kategorien",
-            "filterBlogAuthorDisplayName": "Autor"
+            "filterBlogAuthorDisplayName": "Autor",
+            "filterBlogTagsDisplayName": "Tags"
         },
         "search": {
             "tabs": {

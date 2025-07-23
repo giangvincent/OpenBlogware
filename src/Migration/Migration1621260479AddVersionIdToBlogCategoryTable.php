@@ -17,11 +17,10 @@ class Migration1621260479AddVersionIdToBlogCategoryTable extends MigrationStep
     public function update(Connection $connection): void
     {
         $version = Defaults::LIVE_VERSION;
-        $connection->executeStatement('
-            ALTER TABLE `werkl_blog_category` add `version_id` BINARY(16) NOT NULL AFTER `id`,
-            DROP PRIMARY KEY , ADD PRIMARY KEY ( `id`, `version_id` );
-        ');
 
+        // MySQL 8.4 does not allow dropping indexes that are still used by
+        // foreign key constraints. Therefore we remove the foreign keys first
+        // before altering the primary key of the referenced table.
         $connection->executeStatement('
             ALTER TABLE `werkl_blog_category_translation`
             DROP FOREIGN KEY `fk.werkl_blog_category_translation.werkl_blog_category_id`,
@@ -32,6 +31,11 @@ class Migration1621260479AddVersionIdToBlogCategoryTable extends MigrationStep
             ALTER TABLE `werkl_blog_blog_category`
             DROP FOREIGN KEY `fk.werkl_blog_blog_category.werkl_blog_category_id`,
             DROP KEY `fk.werkl_blog_blog_category.werkl_blog_category_id`;
+        ');
+
+        $connection->executeStatement('
+            ALTER TABLE `werkl_blog_category` ADD `version_id` BINARY(16) NOT NULL AFTER `id`,
+            DROP PRIMARY KEY, ADD PRIMARY KEY (`id`, `version_id`);
         ');
 
         $connection->executeStatement('

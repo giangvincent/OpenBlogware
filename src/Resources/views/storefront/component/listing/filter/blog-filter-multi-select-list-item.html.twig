@@ -3,7 +3,18 @@
 {% block component_filter_multi_select_list_item %}
     <div class="form-check">
         {% set id = element.id %}
-        {% set name = element.getFullName() %}
+
+        {#
+            Some entities (e.g. BlogAuthorEntity) provide a getFullName method
+            which should be used for display. Others, like TagEntity, only have
+            a name property. Fallback to the name attribute if getFullName does
+            not exist to avoid empty labels in the filter.
+        #}
+        {% if element.getFullName is defined %}
+            {% set name = element.getFullName() %}
+        {% else %}
+            {% set name = element.name %}
+        {% endif %}
 
         {% block component_filter_multi_select_list_item_checkbox_input %}
             {{ parent() }}

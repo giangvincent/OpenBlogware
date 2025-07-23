@@ -11,6 +11,7 @@
         "list": {
             "textBlogOverview": "Blog Einträge",
             "buttonAddBlogEntry": "Blog Eintrag erstellen",
+            "buttonSponsor": "Entwicklung unterstützen",
             "messageEmpty": "Keine Einträge vorhanden",
             "table": {
                 "title": "Titel",
@@ -113,6 +114,17 @@
                     "blogCategories": {
                         "label": "Kategorien",
                         "placeholder": "Kategorien auswählen"
+                    },
+                    "showTags": {
+                        "label": "Tags",
+                        "options": {
+                            "all": "Alle",
+                            "select": "Tags auswählen"
+                        }
+                    },
+                    "blogTags": {
+                        "label": "Tags",
+                        "placeholder": "Tags auswählen"
                     }
                 },
                 "component": {

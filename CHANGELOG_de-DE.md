@@ -1,3 +1,21 @@
+# 4.4.2
+- Fehler im CMS-Listing-Bereich der Administration behoben [#16](https://github.com/Werkstattl/OpenBlogware/issues/16)
+- Entwicklung unterstützen Button hinzugefügt
+
+# 4.4.1
+- Vorarbeiten zur Behebung des Fehlers im CMS-Listing-Bereich der Administration [#16](https://github.com/Werkstattl/OpenBlogware/issues/16)
+
+# 4.4.0
+- Listing-CMS-Element im Backend mit Tag-Multi-Auswahl erweitern [#4](https://github.com/Werkstattl/OpenBlogware/issues/4)
+- Mögliche Lösung für MySQL 8.4 Fremdschlüssel [#19](https://github.com/Werkstattl/OpenBlogware/issues/19)
+- JS-Fehler im Search-Popup [#31](https://github.com/Werkstattl/OpenBlogware/issues/31)
+- Teaser nur anzeigen, wenn gefüllt [#32](https://github.com/Werkstattl/OpenBlogware/issues/32)
+- Fehler bei übersetzbaren Teaser-Bildern in der Administration behoben von @lacknere [#27](https://github.com/Werkstattl/OpenBlogware/pull/27)
+
+# 4.3.0
+- Administration Optimierungen von @lacknere in [#25](https://github.com/Werkstattl/OpenBlogware/pull/25)
+- Fehler im Frontend, wenn kein Teaser-Bild gesetzt ist behoben [#26](https://github.com/Werkstattl/OpenBlogware/issues/26)
+
 # 4.2.2
 - Fehler bei Kategorien-Indexierung behoben [#22](https://github.com/Werkstattl/OpenBlogware/pull/22)
 - Übersetzbare Teaser Bilder [#24](https://github.com/Werkstattl/OpenBlogware/pull/24)

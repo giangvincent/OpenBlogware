@@ -22,13 +22,13 @@ class BlogAuthorEntity extends Entity
 
     protected string $email;
 
-    protected ?string $displayName = null;
+    protected ?string $displayName;
 
     protected string $salutationId;
 
-    protected ?SalutationEntity $salutation = null;
+    protected ?SalutationEntity $salutation;
 
-    protected ?string $description = null;
+    protected ?string $description;
 
     /**
      * @var BlogAuthorTranslationCollection|null
@@ -42,7 +42,7 @@ class BlogAuthorEntity extends Entity
 
     protected string $mediaId;
 
-    protected ?MediaEntity $media = null;
+    protected ?MediaEntity $media;
 
     public function getTranslations(): ?BlogAuthorTranslationCollection
     {

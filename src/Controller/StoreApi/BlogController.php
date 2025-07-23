@@ -13,11 +13,17 @@ use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[\Symfony\Component\Routing\Attribute\Route(defaults: ['_routeScope' => ['store-api']])]
+#[Route(defaults: ['_routeScope' => ['store-api']])]
 class BlogController extends AbstractBlogController
 {
-    public function __construct(private readonly EntityRepository $blogRepository)
+    /**
+     * @var EntityRepository
+     */
+    private $blogRepository;
+
+    public function __construct(EntityRepository $blogRepository)
     {
+        $this->blogRepository = $blogRepository;
     }
 
     public function getDecorated(): AbstractBlogController
@@ -25,7 +31,7 @@ class BlogController extends AbstractBlogController
         throw new DecorationPatternException(self::class);
     }
 
-    #[\Symfony\Component\Routing\Attribute\Route(path: '/store-api/blog', name: 'store-api.werkl_blog.load', methods: ['GET', 'POST'], defaults: ['_entity' => 'werkl_blog_entries'])]
+    #[Route(path: '/store-api/blog', name: 'store-api.werkl_blog.load', methods: ['GET', 'POST'], defaults: ['_entity' => 'werkl_blog_entries'])]
     #[OAT\Get(
         path: '/store-api/blog',
         summary: 'This route can be used to load the werkl_blog_entries by specific filters',

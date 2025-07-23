@@ -115,5 +115,9 @@ export default {
                 this.isLoading = false;
             });
         },
+
+        openSponsorPage() {
+            window.open('https://github.com/sponsors/7underlines', '_blank');
+        },
     },
 };

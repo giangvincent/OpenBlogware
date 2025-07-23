@@ -9,8 +9,11 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class BlogSeoUrlListener implements EventSubscriberInterface
 {
-    public function __construct(private readonly SeoUrlUpdater $seoUrlUpdater)
+    private SeoUrlUpdater $seoUrlUpdater;
+
+    public function __construct(SeoUrlUpdater $seoUrlUpdater)
     {
+        $this->seoUrlUpdater = $seoUrlUpdater;
     }
 
     public static function getSubscribedEvents(): array

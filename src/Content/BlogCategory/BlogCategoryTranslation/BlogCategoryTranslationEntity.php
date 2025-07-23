@@ -10,11 +10,11 @@ class BlogCategoryTranslationEntity extends TranslationEntity
 {
     protected string $name;
 
-    protected ?array $customFields = null;
+    protected ?array $customFields;
 
     protected string $werklBlogCategoryId;
 
-    protected ?BlogCategoryEntity $werklBlogCategory = null;
+    protected ?BlogCategoryEntity $werklBlogCategory;
 
     public function getName(): ?string
     {

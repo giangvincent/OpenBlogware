@@ -5,7 +5,9 @@
         },
         "detail": {
             "label": {
-                "pageTypeBlog": "Blogseite"
+                "pageType": {
+                    "blogDetail": "Blogseite"
+                }
             }
         }
     }

@@ -18,8 +18,20 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ProductSuggestDecorated extends AbstractProductSuggestRoute
 {
-    public function __construct(private readonly AbstractProductSuggestRoute $decorated, private readonly EntityRepository $blogRepository, private readonly SystemConfigService $systemConfigService)
-    {
+    private AbstractProductSuggestRoute $decorated;
+
+    private EntityRepository $blogRepository;
+
+    private SystemConfigService $systemConfigService;
+
+    public function __construct(
+        AbstractProductSuggestRoute $decorated,
+        EntityRepository $blogRepository,
+        SystemConfigService $systemConfigService
+    ) {
+        $this->decorated = $decorated;
+        $this->blogRepository = $blogRepository;
+        $this->systemConfigService = $systemConfigService;
     }
 
     public function getDecorated(): AbstractProductSuggestRoute

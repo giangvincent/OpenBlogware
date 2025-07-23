@@ -3,32 +3,45 @@ declare(strict_types=1);
 
 namespace Werkl\OpenBlogware\Controller;
 
+use Shopware\Core\Framework\Adapter\Cache\AbstractCacheTracer;
 use Shopware\Core\Framework\Adapter\Cache\CacheValueCompressor;
 use Shopware\Core\Framework\DataAbstractionLayer\Cache\EntityCacheKeyGenerator;
 use Shopware\Core\Framework\Util\Json;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Shopware\Storefront\Controller\StorefrontController;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
-use Shopware\Core\Framework\Event\AddCacheTags;
 
 /**
  * Handle Cache for BlogController
  */
-#[\Symfony\Component\Routing\Attribute\Route(defaults: ['_routeScope' => ['storefront']])]
+#[Route(defaults: ['_routeScope' => ['storefront']])]
 class CachedBlogController extends StorefrontController
 {
+    private BlogController $decorated;
+
+    private CacheInterface $cache;
+
+    private EntityCacheKeyGenerator $generator;
+
+    /**
+     * @var AbstractCacheTracer<Response>
+     */
+    private AbstractCacheTracer $tracer;
+
     public function __construct(
-        private readonly BlogController $decorated,
-        private readonly CacheInterface $cache,
-        private readonly EntityCacheKeyGenerator $generator,
-        private readonly EventDispatcherInterface $eventDispatcher
-    )
-    {
+        BlogController $decorated,
+        CacheInterface $cache,
+        EntityCacheKeyGenerator $generator,
+        AbstractCacheTracer $tracer
+    ) {
+        $this->decorated = $decorated;
+        $this->cache = $cache;
+        $this->generator = $generator;
+        $this->tracer = $tracer;
     }
 
     public static function buildName(string $articleId): string
@@ -36,7 +49,7 @@ class CachedBlogController extends StorefrontController
         return 'werkl-blog-detail-' . $articleId;
     }
 
-    #[\Symfony\Component\Routing\Attribute\Route(path: '/werkl_blog/{articleId}', name: 'werkl.frontend.blog.detail', methods: ['GET'])]
+    #[Route(path: '/werkl_blog/{articleId}', name: 'werkl.frontend.blog.detail', methods: ['GET'])]
     public function detailAction(Request $request, SalesChannelContext $context): Response
     {
         $articleId = $request->attributes->get('articleId');
@@ -67,17 +80,10 @@ class CachedBlogController extends StorefrontController
      */
     private function generateTags(string $articleId): array
     {
-        $tags = [self::buildName($articleId)];
-        
-        // Use the new event system for collecting cache tags
-        $event = new AddCacheTags();
-        $name = self::buildName($articleId);
-        
-        $this->eventDispatcher->dispatch($event, $name);
-        
-        if (method_exists($event, 'getTags')) {
-            $tags = array_merge($event->getTags(), $tags);
-        }
+        $tags = array_merge(
+            $this->tracer->get(self::buildName($articleId)),
+            [self::buildName($articleId)]
+        );
 
         return array_unique(array_filter($tags));
     }

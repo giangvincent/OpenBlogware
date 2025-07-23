@@ -24,8 +24,20 @@ class BlogUrlProvider extends AbstractUrlProvider
     public const CHANGE_FREQ = 'daily';
     public const PRIORITY = 1.0;
 
-    public function __construct(private readonly EntityRepository $blogRepository, private readonly Connection $connection, private readonly EventDispatcherInterface $eventDispatcher)
-    {
+    private EntityRepository $blogRepository;
+
+    private Connection $connection;
+
+    private EventDispatcherInterface $eventDispatcher;
+
+    public function __construct(
+        EntityRepository $blogRepository,
+        Connection $connection,
+        EventDispatcherInterface $eventDispatcher
+    ) {
+        $this->blogRepository = $blogRepository;
+        $this->connection = $connection;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     public function getDecorated(): AbstractUrlProvider

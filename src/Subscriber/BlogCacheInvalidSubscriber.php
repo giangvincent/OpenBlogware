@@ -28,8 +28,28 @@ use Werkl\OpenBlogware\Controller\CachedBlogSearchController;
  */
 class BlogCacheInvalidSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private readonly SeoUrlUpdater $seoUrlUpdater, private readonly EntityRepository $categoryRepository, private readonly EntityRepository $blogRepository, private readonly CacheInvalidator $cacheInvalidator, private readonly SystemConfigService $systemConfigService)
-    {
+    private SeoUrlUpdater $seoUrlUpdater;
+
+    private EntityRepository $categoryRepository;
+
+    private EntityRepository $blogRepository;
+
+    private CacheInvalidator $cacheInvalidator;
+
+    private SystemConfigService $systemConfigService;
+
+    public function __construct(
+        SeoUrlUpdater $seoUrlUpdater,
+        EntityRepository $categoryRepository,
+        EntityRepository $blogRepository,
+        CacheInvalidator $cacheInvalidator,
+        SystemConfigService $systemConfigService
+    ) {
+        $this->seoUrlUpdater = $seoUrlUpdater;
+        $this->categoryRepository = $categoryRepository;
+        $this->blogRepository = $blogRepository;
+        $this->cacheInvalidator = $cacheInvalidator;
+        $this->systemConfigService = $systemConfigService;
     }
 
     public static function getSubscribedEvents(): array
@@ -164,7 +184,7 @@ class BlogCacheInvalidSubscriber implements EventSubscriberInterface
         }
 
         $this->cacheInvalidator->invalidate(
-            array_map(EntityCacheKeyGenerator::buildCmsTag(...), [$cmsBlogDetailPageId])
+            array_map([EntityCacheKeyGenerator::class, 'buildCmsTag'], [$cmsBlogDetailPageId])
         );
     }
 

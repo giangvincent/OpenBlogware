@@ -19,6 +19,11 @@ class SalutationExtension extends EntityExtension
         );
     }
 
+    public function getDefinitionClass(): string
+    {
+        return SalutationDefinition::class;
+    }
+
     public function getEntityName(): string
     {
         return SalutationDefinition::ENTITY_NAME;

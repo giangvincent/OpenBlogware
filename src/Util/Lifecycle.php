@@ -10,8 +10,16 @@ use Shopware\Core\System\SystemConfig\SystemConfigService;
 
 class Lifecycle
 {
-    public function __construct(private readonly SystemConfigService $systemConfig, private readonly EntityRepository $cmsPageRepository)
-    {
+    private SystemConfigService $systemConfig;
+
+    private EntityRepository $cmsPageRepository;
+
+    public function __construct(
+        SystemConfigService $systemConfig,
+        EntityRepository $cmsPageRepository
+    ) {
+        $this->systemConfig = $systemConfig;
+        $this->cmsPageRepository = $cmsPageRepository;
     }
 
     public function install(Context $context): void
