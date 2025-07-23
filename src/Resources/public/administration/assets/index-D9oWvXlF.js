@@ -1,2 +1,0 @@
-const i=`{% block werkl_cms_preview_blog_listing %} <div class="werkl-cms-preview-blog-listing"> <div class="werkl-cms-preview-blog-listing-item"> <h2> {{ $tc('werkl-blog.blocks.blog.listing.previewTitle') }} </h2> <div> <time>{{ today }}</time> <div></div> <div></div> </div> <div> <time>{{ today }}</time> <div></div> <div></div> </div> </div> </div> {% endblock %}`,e={template:i,computed:{today(){return new Date().toLocaleDateString()}}};export{e as default};
-//# sourceMappingURL=index-D9oWvXlF.js.map

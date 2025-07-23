@@ -1,2 +1,0 @@
-const e='{% block werkl_blog_element_previews %} <div class="sw-cms-el-preview-text"> <h2>Lorem ipsum dolor</h2> <p> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna. </p> </div> {% endblock %}',o={template:e};export{o as default};
-//# sourceMappingURL=index-DmxXElnc.js.map

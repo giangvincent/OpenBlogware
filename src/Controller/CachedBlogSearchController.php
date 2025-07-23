@@ -3,18 +3,18 @@ declare(strict_types=1);
 
 namespace Werkl\OpenBlogware\Controller;
 
+use Shopware\Core\Framework\Adapter\Cache\CacheValueCompressor;
+use Shopware\Core\Framework\DataAbstractionLayer\Cache\EntityCacheKeyGenerator;
 use Shopware\Core\Framework\Util\Json;
-use Symfony\Contracts\Cache\ItemInterface;
-use Symfony\Contracts\Cache\CacheInterface;
+use Shopware\Core\System\SalesChannel\SalesChannelContext;
+use Shopware\Storefront\Controller\StorefrontController;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Shopware\Storefront\Controller\StorefrontController;
-use Shopware\Core\System\SalesChannel\SalesChannelContext;
-use Shopware\Core\Framework\Adapter\Cache\CacheValueCompressor;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Shopware\Core\Framework\Adapter\Cache\Event\AddCacheTagEvent;
-use Shopware\Core\Framework\DataAbstractionLayer\Cache\EntityCacheKeyGenerator;
+use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Contracts\Cache\ItemInterface;
+use Shopware\Core\Framework\Event\AddCacheTags;
 
 /**
  * Handle Cache for BlogSearchController
@@ -69,7 +69,7 @@ class CachedBlogSearchController extends StorefrontController
             $response = $this->decorated->ajax($request, $context);
             
             // Trigger an event to collect cache tags
-            $this->eventDispatcher->dispatch(new AddCacheTagEvent($name));
+            $this->eventDispatcher->dispatch(new AddCacheTags(), $name);
 
             $item->tag($this->generateSearchTags($context));
 
@@ -96,10 +96,17 @@ class CachedBlogSearchController extends StorefrontController
     private function generateSearchTags(SalesChannelContext $context): array
     {
         $tags = [self::buildName($context->getSalesChannelId()), self::SEARCH_TAG];
+        
+        // Use the event system for collecting cache tags
+        $event = new AddCacheTags();
+        $name = self::buildName($context->getSalesChannelId());
+        
+        $this->eventDispatcher->dispatch($event, $name);
+        
+        if (method_exists($event, 'getTags')) {
+            $tags = array_merge($event->getTags(), $tags);
+        }
 
-        $event = new AddCacheTagEvent(...$tags);
-        $this->eventDispatcher->dispatch($event);
-    
-        return array_unique(array_filter($event->tags));
+        return array_unique(array_filter($tags));
     }
 }

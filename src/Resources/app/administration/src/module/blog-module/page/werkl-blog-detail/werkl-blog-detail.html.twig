@@ -35,16 +35,16 @@
         @update:process-success="saveFinish"
         @click.prevent="onSaveBlog"
     >
-        {{ $tc('sw-cms.detail.label.buttonSave') }}
+        {{ $t('sw-cms.detail.label.buttonSave') }}
     </sw-button-process>
 {% endblock %}
 {% block sw_cms_detail_stage_empty_stade_content %}
     <div class="sw-cms-detail__empty-stage-content">
         <h2 class="sw-cms-detail__empty-stage-headline">
-            {{ $tc('sw-cms.detail.label.headlineEmptyState') }}
+            {{ $t('sw-cms.detail.label.headlineEmptyState') }}
         </h2>
         <p class="sw-cms-detail__empty-stage-claim">
-            {{ $tc('sw-cms.detail.label.claimEmptyState') }}
+            {{ $t('sw-cms.detail.label.claimEmptyState') }}
         </p>
         <sw-cms-stage-add-section
             :disabled="page.locked"

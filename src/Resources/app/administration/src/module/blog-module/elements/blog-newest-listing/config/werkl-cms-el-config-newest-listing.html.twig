@@ -9,7 +9,7 @@
             v-model="element.config.itemCount.value"
             :digits="2"
             :allowEmpty="false"
-            :label="$tc('werkl-blog.elements.newestListing.config.itemCount')"
+            :label="$t('werkl-blog.elements.newestListing.config.itemCount')"
         ></mt-number-field>
         {% endblock %}
 
@@ -22,19 +22,19 @@
             v-model="element.config.offsetCount.value"
             :digits="2"
             :allowEmpty="false"
-            :label="$tc('werkl-blog.elements.newestListing.config.offsetCount')"
+            :label="$t('werkl-blog.elements.newestListing.config.offsetCount')"
         ></mt-number-field>
         {% endblock %}
 
     {% block werkl_cms_element_blog_listing_config_show_type %}
         <mt-select
-            :label="$tc('werkl-blog.elements.newestListing.config.showType.label')"
+            :label="$t('werkl-blog.elements.newestListing.config.showType.label')"
             v-model="element.config.showType.value"
             :options="[{"
             label":"{{
-            $tc('werkl-blog.elements.newestListing.config.showType.options.all')
+            $t('werkl-blog.elements.newestListing.config.showType.options.all')
             }}","value":"all"},{"label":"{{
-            $tc('werkl-blog.elements.newestListing.config.showType.options.select')
+            $t('werkl-blog.elements.newestListing.config.showType.options.select')
             }}","value":"select"}]"
         ></mt-select>
         {% endblock %}
@@ -43,10 +43,10 @@
         <werkl-blog-category-tree-field
             v-if="element.config.showType.value !== 'all' && selectedCategories"
             v-model:value="selectedCategories"
-            :label="$tc('werkl-blog.elements.newestListing.config.blogCategories.label')"
+            :label="$t('werkl-blog.elements.newestListing.config.blogCategories.label')"
             :categoriesCollection="selectedCategories"
             class="sw-product-detail__select-category"
-            :placeholder="$tc('werkl-blog.elements.newestListing.config.blogCategories.placeholder')"
+            :placeholder="$t('werkl-blog.elements.newestListing.config.blogCategories.placeholder')"
         ></werkl-blog-category-tree-field>
         {% endblock %}
     </div>

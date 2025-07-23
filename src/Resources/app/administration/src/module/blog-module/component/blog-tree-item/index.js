@@ -5,6 +5,7 @@ export default {
 
     computed: {
         parentScope() {
+            console.log(this.$parent)
             let parentNode = this.$parent;
              
             while (parentNode.$options.name !== 'sw-tree') {

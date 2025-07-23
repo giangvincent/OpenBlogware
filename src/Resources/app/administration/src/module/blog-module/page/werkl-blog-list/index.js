@@ -2,16 +2,24 @@ import template from './werkl-blog-list.twig';
 import './werkl-blog-list.scss';
 
 const { Mixin } = Shopware;
-const Criteria = Shopware.Data.Criteria;
+const { Criteria } = Shopware.Data;
 
 export default {
     template,
 
-    inject: ['repositoryFactory'],
+    inject: [
+        'repositoryFactory',
+        'acl',
+        'feature',
+        'systemConfigApiService',
+        'cmsPageTypeService',
+    ],
 
     mixins: [
         Mixin.getByName('salutation'),
         Mixin.getByName('listing'),
+        Mixin.getByName('notification'),
+        Mixin.getByName('user-settings'),
     ],
 
     data() {
@@ -20,7 +28,7 @@ export default {
             blogEntries: null,
             total: 0,
             isLoading: true,
-            currentLanguageId: Shopware.Context.api.languageId,
+            currentLanguageId: Shopware.Store.get('context').api.languageId,
         };
     },
 
@@ -52,24 +60,24 @@ export default {
                 {
                     property: 'title',
                     dataIndex: 'title',
-                    label: this.$tc('werkl-blog.list.table.title'),
+                    label: this.$t('werkl-blog.list.table.title'),
                     routerLink: 'blog.module.detail',
                     primary: true,
                     inlineEdit: 'string',
                 },
                 {
                     property: 'author',
-                    label: this.$tc('werkl-blog.list.table.author'),
+                    label: this.$t('werkl-blog.list.table.author'),
                     inlineEdit: false,
                 },
                 {
                     property: 'publishedAt',
-                    label: this.$tc('werkl-blog.list.table.publishedAt'),
+                    label: this.$t('werkl-blog.list.table.publishedAt'),
                     inlineEdit: false,
                 },
                 {
                     property: 'active',
-                    label: this.$tc('werkl-blog.list.table.active'),
+                    label: this.$t('werkl-blog.list.table.active'),
                     inlineEdit: 'boolean',
                 },
             ];
@@ -101,7 +109,7 @@ export default {
             if (this.categoryId) {
                 criteria.addFilter(Criteria.equals('blogCategories.id', this.categoryId));
             }
-            return this.blogEntriesRepository.search(criteria, Shopware.Context.api).then((result) => {
+            return this.blogEntriesRepository.search(criteria, Shopware.Store.get('context').api).then((result) => {
                 this.total = result.total;
                 this.blogEntries = result;
                 this.isLoading = false;

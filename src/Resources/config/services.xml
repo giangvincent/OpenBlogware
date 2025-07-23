@@ -64,7 +64,6 @@
             <argument type="service" id="event_dispatcher"/>
             <argument id="Shopware\Core\Content\Cms\SalesChannel\SalesChannelCmsPageLoader" type="service"/>
             <argument id="werkl_blog_entries.repository" type="service"/>
-            <argument type="service" id="Shopware\Storefront\Pagelet\Header\HeaderPageletLoader" />
         </service>
 
         <!-- Controller -->
@@ -72,7 +71,7 @@
             <argument type="service" id="Werkl\OpenBlogware\Controller\CachedBlogController.inner"/>
             <argument type="service" id="cache.object"/>
             <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\Cache\EntityCacheKeyGenerator"/>
-            <argument type="service" id="event_dispatcher"/>
+
             <call method="setContainer">
                 <argument type="service" id="service_container"/>
             </call>
@@ -83,6 +82,9 @@
 
             <call method="setContainer">
                 <argument type="service" id="service_container"/>
+            </call>
+            <call method="setTwig">
+                <argument type="service" id="twig"/>
             </call>
         </service>
 
@@ -132,6 +134,8 @@
         <service id="Werkl\OpenBlogware\Content\Cms\DataResolver\WerklCmsSlotsDataResolver" decorates="Shopware\Core\Content\Cms\DataResolver\CmsSlotsDataResolver">
             <argument type="service" id="Werkl\OpenBlogware\Content\Cms\DataResolver\WerklCmsSlotsDataResolver.inner"/>
             <argument type="tagged" tag="shopware.cms.data_resolver"/>
+            <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
+            <argument type="service" id="Shopware\Core\Framework\Extensions\ExtensionDispatcher"/>
         </service>
 
         <service id="Werkl\OpenBlogware\Content\Blog\DataResolver\BlogCmsElementResolver">

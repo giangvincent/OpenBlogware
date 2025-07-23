@@ -3,7 +3,7 @@
         <template #smart-bar-header>
             <h2>
                 {% block werkl_blog_list_smart_bar_header_title_text %}
-                {{ $tc('werkl-blog.list.textBlogOverview') }}
+                {{ $t('werkl-blog.list.textBlogOverview') }}
                 {% endblock %}
 
             {% block werkl_blog_list_smart_bar_header_amount %}
@@ -23,20 +23,25 @@
         {% block werkl_blog_list_smart_bar_actions %}
         <template #smart-bar-actions>
             {% block werkl_blog_list_smart_bar_actions_add %}
-            <mt-button
-                @click="$router.push({ name: 'blog.module.create' })"
+            <mt-button @click="this.$router.push('create')"
                 variant="primary"
             >
-                {{ $tc('werkl-blog.list.buttonAddBlogEntry') }}
+                {{ $t('werkl-blog.list.buttonAddBlogEntry') }}
             </mt-button>
             {% endblock %}
         </template>
         {% endblock %}
-      
+        <template #sidebar>
+            <werkl-blog-vertical-tabs/>
+        </template>
 
         <template #side-content>
             {% block werkl_blog_category_side_content %}
-           
+            <werkl-blog-category-tree
+                :categoryId="categoryId"
+                :currentLanguageId="currentLanguageId"
+                @update:categoryId="changeCategoryId"
+            />
             {% endblock %}
         </template>
 
@@ -100,9 +105,9 @@
         {% block werkl_blog_list_empty_state %}
             <sw-empty-state
                 v-if="!isLoading && !total"
-                :title="$tc('werkl-blog.list.messageEmpty')"
+                :title="$t('werkl-blog.list.messageEmpty')"
             >
-                {{ $tc('werkl-blog-author.list.messageEmpty') }}
+                {{ $t('werkl-blog-author.list.messageEmpty') }}
             </sw-empty-state>
             {% endblock %}
         </template>

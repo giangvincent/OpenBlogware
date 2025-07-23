@@ -13,7 +13,7 @@ export default {
             categorySearchCriteria.setTerm(term);
 
             // search for categories
-            return this.globalCategoryRepository.search(categorySearchCriteria, Shopware.Context.api);
+            return this.globalCategoryRepository.search(categorySearchCriteria, Shopware.Store.get('context').api);
         },
     },
 };
