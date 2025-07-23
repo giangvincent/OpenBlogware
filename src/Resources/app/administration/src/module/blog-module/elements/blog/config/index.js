@@ -30,7 +30,7 @@ export default {
         },
 
         blogListingSelectContext() {
-            const context = Object.assign({}, Shopware.Context.api);
+            const context = Object.assign({}, Shopware.Store.get('context').api);
             context.inheritance = true;
 
             return context;
@@ -79,7 +79,7 @@ export default {
                 criteria.setIds(this.blogCategoriesConfigValue);
 
                 this.blogCategoryRepository
-                    .search(criteria, Shopware.Context.api)
+                    .search(criteria, Shopware.Store.get('context').api)
                     .then((result) => {
                         this.selectedCategories = result;
                     });
@@ -87,7 +87,7 @@ export default {
                 this.selectedCategories = new EntityCollection(
                     this.blogCategoryRepository.route,
                     this.blogCategoryRepository.schema.entity,
-                    Shopware.Context.api,
+                    Shopware.Store.get('context').api,
                     new Criteria(),
                 );
             }

@@ -76,9 +76,6 @@
             <call method="setContainer">
                 <argument type="service" id="service_container"/>
             </call>
-            <call method="setTwig">
-                <argument type="service" id="twig"/>
-            </call>
         </service>
 
         <service id="Werkl\OpenBlogware\Controller\BlogController" public="true">
@@ -101,9 +98,6 @@
             <call method="setContainer">
                 <argument type="service" id="service_container"/>
             </call>
-            <call method="setTwig">
-                <argument type="service" id="twig"/>
-            </call>
         </service>
 
         <service id="Werkl\OpenBlogware\Controller\BlogSearchController" public="true">
@@ -111,9 +105,6 @@
 
             <call method="setContainer">
                 <argument type="service" id="service_container"/>
-            </call>
-            <call method="setTwig">
-                <argument type="service" id="twig"/>
             </call>
         </service>
 
@@ -126,9 +117,6 @@
             <call method="setContainer">
                 <argument type="service" id="service_container"/>
             </call>
-            <call method="setTwig">
-                <argument type="service" id="twig"/>
-            </call>
         </service>
 
         <service id="Werkl\OpenBlogware\Controller\BlogRssController" public="true">
@@ -137,9 +125,6 @@
 
             <call method="setContainer">
                 <argument type="service" id="service_container"/>
-            </call>
-            <call method="setTwig">
-                <argument type="service" id="twig"/>
             </call>
         </service>
 
@@ -152,6 +137,8 @@
         <service id="Werkl\OpenBlogware\Content\Cms\DataResolver\WerklCmsSlotsDataResolver" decorates="Shopware\Core\Content\Cms\DataResolver\CmsSlotsDataResolver">
             <argument type="service" id="Werkl\OpenBlogware\Content\Cms\DataResolver\WerklCmsSlotsDataResolver.inner"/>
             <argument type="tagged" tag="shopware.cms.data_resolver"/>
+            <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
+            <argument type="service" id="Shopware\Core\Framework\Extensions\ExtensionDispatcher"/>
         </service>
 
         <service id="Werkl\OpenBlogware\Content\Blog\DataResolver\BlogCmsElementResolver">

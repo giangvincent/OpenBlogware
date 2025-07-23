@@ -5,7 +5,7 @@ export default {
 
             sortPageTypes.push({
                 value: 'blog_detail',
-                name: this.$tc('sw-cms.sorting.labelSortByBlogPages'),
+                name: this.$t('sw-cms.sorting.labelSortByBlogPages'),
             });
 
             return sortPageTypes;

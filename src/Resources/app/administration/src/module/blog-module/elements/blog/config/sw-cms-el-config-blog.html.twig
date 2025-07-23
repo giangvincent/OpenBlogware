@@ -1,81 +1,64 @@
 {% block werkl_cms_element_blog_listing_config %}
-<div class="sw-cms-el-config-blog">
-
-    {% block werkl_cms_element_blog_listing_config_paginationCount_field %}
-    <sw-number-field
-        numberType="int"
-        :step="1"
-        :min="1"
-        :max="null"
-        v-model:value="element.config.paginationCount.value"
-        :digits="2"
-        :allowEmpty="false"
-        :label="$tc('werkl-blog.elements.listing.config.paginationCount')">
-    </sw-number-field>
-    {% endblock %}
+    <div class="sw-cms-el-config-blog">
+        {% block werkl_cms_element_blog_listing_config_paginationCount_field %}
+        <mt-number-field
+            numberType="int"
+            :step="1"
+            :min="1"
+            :max="null"
+            v-model="element.config.paginationCount.value"
+            :digits="2"
+            :allowEmpty="false"
+            :label="$t('werkl-blog.elements.listing.config.paginationCount')"
+        >
+    </mt-number-field>
+        {% endblock %}
 
     {% block werkl_cms_element_blog_listing_config_show_type %}
-    <sw-select-field
-        :label="$tc('werkl-blog.elements.listing.config.showType.label')"
-        v-model:value="element.config.showType.value"
-    >
-        {% block werkl_cms_element_download_card_config_layout_select_options %}
-        <option value="all">{{ $tc('werkl-blog.elements.listing.config.showType.options.all') }}</option>
-        <option value="select">{{ $tc('werkl-blog.elements.listing.config.showType.options.select') }}</option>
+        <mt-select
+            :label="$t('werkl-blog.elements.listing.config.showType.label')"
+            v-model="element.config.showType.value"
+            :options="[{"
+            label":"{{
+            $t('werkl-blog.elements.listing.config.showType.options.all')
+            }}","value":"all"},{"label":"{{
+            $t('werkl-blog.elements.listing.config.showType.options.select')
+            }}","value":"select"}]"
+        ></mt-select>
         {% endblock %}
-    </sw-select-field>
-    {% endblock %}
 
 
     {% block werkl_cms_element_blog_listing_config_select_categories %}
-    <werkl-blog-category-tree-field
-        v-if="element.config.showType.value !== 'all' && selectedCategories"
-        v-model:value="selectedCategories"
-        :label="$tc('werkl-blog.elements.listing.config.blogCategories.label')"
-        :categoriesCollection="selectedCategories"
-        class="sw-product-detail__select-category"
-        :placeholder="$tc('werkl-blog.elements.listing.config.blogCategories.placeholder')">
+        <werkl-blog-category-tree-field
+            v-if="element.config.showType.value !== 'all' && selectedCategories"
+            v-model:value="selectedCategories"
+            :label="$t('werkl-blog.elements.listing.config.blogCategories.label')"
+            :categoriesCollection="selectedCategories"
+            class="sw-product-detail__select-category"
+            :placeholder="$t('werkl-blog.elements.listing.config.blogCategories.placeholder')"
+        >
     </werkl-blog-category-tree-field>
-    {% endblock %}
-
-    {% block werkl_cms_element_blog_listing_config_show_tags %}
-    <sw-select-field
-        :label="$tc('werkl-blog.elements.listing.config.showTags.label')"
-        v-model:value="element.config.showTags.value"
-    >
-        <option value="all">{{ $tc('werkl-blog.elements.listing.config.showTags.options.all') }}</option>
-        <option value="select">{{ $tc('werkl-blog.elements.listing.config.showTags.options.select') }}</option>
-    </sw-select-field>
-    {% endblock %}
-
-    {% block werkl_cms_element_blog_listing_config_select_tags %}
-    <sw-entity-tag-select
-        v-if="element.config.showTags.value !== 'all' && selectedTags"
-        v-model:entityCollection="selectedTags"
-        :label="$tc('werkl-blog.elements.listing.config.blogTags.label')"
-        :placeholder="$tc('werkl-blog.elements.listing.config.blogTags.placeholder')">
-    </sw-entity-tag-select>
-    {% endblock %}
+        {% endblock %}
 
     {% block werkl_cms_element_blog_listing_config_show_filter_select %}
-    <sw-card
-        :title="$tc('werkl-blog.elements.listing.config.showFilter.label')"
-        :hero="false"
-        :isLoading="false"
-        :large="false"
-        class="sw-blog-config-filter">
-
-        <sw-checkbox-field
-            :label="$tc('werkl-blog.elements.listing.config.showFilter.options.filter.category')"
-            v-model:value="element.config.showCategoryFilter.value">
-        </sw-checkbox-field>
-
-        <sw-checkbox-field
-            :label="$tc('werkl-blog.elements.listing.config.showFilter.options.filter.author')"
-            v-model:value="element.config.showAuthorFilter.value">
-        </sw-checkbox-field>
-    </sw-card>
-    {% endblock %}
-
-</div>
+        <mt-card
+            :title="$t('werkl-blog.elements.listing.config.showFilter.label')"
+            :hero="false"
+            :isLoading="false"
+            :large="false"
+            class="sw-blog-config-filter"
+        >
+            <mt-checkbox
+                :label="$t('werkl-blog.elements.listing.config.showFilter.options.filter.category')"
+                v-model:checked="element.config.showCategoryFilter.value"
+            >
+        </mt-checkbox>
+            <mt-checkbox
+                :label="$t('werkl-blog.elements.listing.config.showFilter.options.filter.author')"
+                v-model:checked="element.config.showAuthorFilter.value"
+            >
+        </mt-checkbox>
+        </mt-card>
+        {% endblock %}
+    </div>
 {% endblock %}

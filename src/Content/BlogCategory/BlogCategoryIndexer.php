@@ -136,7 +136,7 @@ class BlogCategoryIndexer extends EntityIndexer
     private function fetchChildren(array $categoryIds, string $versionId): array
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('DISTINCT LOWER(HEX(category.id))');
+        $query->select('DISTINCT LOWER(HEX(category.id)) as id');
         $query->from('werkl_blog_category', 'category');
 
         $wheres = [];
@@ -151,6 +151,6 @@ class BlogCategoryIndexer extends EntityIndexer
         $query->setParameter('version', Uuid::fromHexToBytes($versionId));
         $result = $query->executeQuery();
 
-        return $result->fetchAllAssociative();
+        return array_column($result->fetchAllAssociative(), 'id');
     }
 }

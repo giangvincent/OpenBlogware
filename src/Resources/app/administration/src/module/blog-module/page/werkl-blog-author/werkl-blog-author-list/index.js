@@ -21,7 +21,7 @@ export default {
             blogAuthors: null,
             total: 0,
             isLoading: true,
-            currentLanguageId: Shopware.Context.api.languageId,
+            currentLanguageId: Shopware.Store.get('context').api.languageId,
         };
     },
 
@@ -83,7 +83,7 @@ export default {
             criteria.addAssociation('media');
             criteria.addAssociation('salutation');
 
-            return this.blogAuthorRepository.search(criteria, Shopware.Context.api).then((result) => {
+            return this.blogAuthorRepository.search(criteria, Shopware.Store.get('context').api).then((result) => {
                 this.total = result.total;
                 this.blogAuthors = result;
                 this.isLoading = false;

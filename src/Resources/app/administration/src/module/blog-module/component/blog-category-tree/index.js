@@ -30,7 +30,7 @@ export default {
                 return true;
             }
 
-            return this.currentLanguageId !== Shopware.Context.api.systemLanguageId;
+            return this.currentLanguageId !== Shopware.Store.get('context').api.systemLanguageId;
         },
         syncProducts() {
             return;

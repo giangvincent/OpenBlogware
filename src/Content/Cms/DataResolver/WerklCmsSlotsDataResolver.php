@@ -9,13 +9,13 @@ use Shopware\Core\Content\Cms\CmsPageEntity;
 use Shopware\Core\Content\Cms\DataResolver\CmsSlotsDataResolver;
 use Shopware\Core\Content\Cms\DataResolver\Element\CmsElementResolverInterface;
 use Shopware\Core\Content\Cms\DataResolver\ResolverContext\ResolverContext;
+use Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
+use Shopware\Core\Framework\Extensions\ExtensionDispatcher;
 use Werkl\OpenBlogware\Content\Blog\BlogEntriesEntity;
 use Werkl\OpenBlogware\Content\Blog\DataResolver\BlogDetailCmsElementResolver;
 
 class WerklCmsSlotsDataResolver extends CmsSlotsDataResolver
 {
-    private CmsSlotsDataResolver $decorated;
-
     /**
      * @var CmsElementResolverInterface[]
      */
@@ -24,10 +24,12 @@ class WerklCmsSlotsDataResolver extends CmsSlotsDataResolver
     /**
      * @param CmsElementResolverInterface[] $resolvers
      */
-    public function __construct(CmsSlotsDataResolver $decorated, iterable $resolvers)
-    {
-        $this->decorated = $decorated;
-
+    public function __construct(
+        private readonly CmsSlotsDataResolver       $decorated,
+        iterable                                    $resolvers,
+        private readonly DefinitionInstanceRegistry $definitionRegistry,
+        private readonly ExtensionDispatcher        $extensions,
+    ) {
         foreach ($resolvers as $resolver) {
             $this->resolvers[$resolver->getType()] = $resolver;
         }

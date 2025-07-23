@@ -3,20 +3,21 @@ export default {
         async createdComponent() {
             Shopware.Store.get('adminMenu').collapseSidebar();
 
-            const isSystemDefaultLanguage = Shopware.State.getters['context/isSystemDefaultLanguage'];
-            this.cmsPageState.setIsSystemDefaultLanguage(isSystemDefaultLanguage);
+            const isSystemDefaultLanguage = Shopware.Store.get('context').isSystemDefaultLanguage;
             if (!isSystemDefaultLanguage) {
-                Shopware.State.commit('context/resetLanguageToDefault');
+                Shopware.Store.get('context').resetLanguageToDefault();
+                this.$store.commit('cmsPageState/setIsSystemDefaultLanguage', isSystemDefaultLanguage);
             }
 
-            if (Shopware.Context.api.languageId !== Shopware.Context.api.systemLanguageId) {
-                Shopware.State.commit('context/setApiLanguageId', Shopware.Context.api.languageId);
+            if (Shopware.Store.get('context').api.languageId !== Shopware.Store.get('context').api.systemLanguageId) {
+                this.$store.commit('context/setApiLanguageId', Shopware.Store.get('context').api.languageId);
             }
 
             this.resetCmsPageState();
 
             this.createPage();
             this.createBlog(this.page.id);
+            this.loadCMSDataResolver();
             this.isLoading = false;
 
             this.setPageContext();
