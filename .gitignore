@@ -20,3 +20,6 @@ src/Resources/app/storefront/node_modules
 
 src/Resources/public/administration/css/
 src/Resources/public/administration/js/
+src/Resources/public/administration/assets/
+src/Resources/public/static/
+src/Resources/app/administration/.tmp/

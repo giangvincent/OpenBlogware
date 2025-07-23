@@ -1,2 +1,0 @@
-const e='{% block werkl_cms_element_blog_listing_config %} <div class="sw-cms-el-config-blog"></div> {% endblock %}',{Mixin:t}=Shopware,o={template:e,inject:["repositoryFactory"],mixins:[t.getByName("cms-element")],data(){return{}},computed:{},watch:{},created(){this.createdComponent()},methods:{async createdComponent(){this.initElementConfig("blog-categories")},getSelectedCategories(){}}};export{o as default};
-//# sourceMappingURL=index-DHPSVGBu.js.map

@@ -1,8 +1,8 @@
 {% block werkl_cms_element_blog_single_select_config %}
     <div class="sw-cms-el-config-blog-single-select">
         <sw-entity-single-select
-            :placeholder="$tc('werkl-blog.elements.single-select.selectFieldLabel')"
-            :label="$tc('werkl-blog.elements.single-select.selectFieldLabel')"
+            :placeholder="$t('werkl-blog.elements.single-select.selectFieldLabel')"
+            :label="$t('werkl-blog.elements.single-select.selectFieldLabel')"
             entity="werkl_blog_entries"
             v-model:value="element.config.blogEntry.value"
         >

@@ -29,7 +29,7 @@ export default {
 
     computed: {
         articleImage() {
-            return this.mediaUrl ? this.mediaUrl : `${Shopware.Context.api.assetsPath}/administration/static/img/cms/preview_mountain_small.jpg`;
+            return this.mediaUrl ? this.mediaUrl : `${Shopware.Store.get('context').api.assetsPath}/administration/static/img/cms/preview_mountain_small.jpg`;
         },
 
         repository() {

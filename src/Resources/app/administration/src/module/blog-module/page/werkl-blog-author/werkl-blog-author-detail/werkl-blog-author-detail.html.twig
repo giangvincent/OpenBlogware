@@ -3,7 +3,7 @@
         <template #smart-bar-header>
             <h2>
                 {% block werkl_blog_author_detail_smart_bar_header_title_text %}
-                {{ salutation(blogAuthor) || $tc('werkl-blog-author.detail.title') }}
+                {{ salutation(blogAuthor) || $t('werkl-blog-author.detail.title') }}
                 {% endblock %}
             </h2>
         </template>
@@ -12,7 +12,7 @@
             <mt-button
                 :router-link="{ name: 'blog.module.author.index' }"
             >
-                {{ $tc('werkl-blog-author.detail.buttonCancel') }}
+                {{ $t('werkl-blog-author.detail.buttonCancel') }}
             </mt-button>
             <sw-button-process
                 :is-loading="isLoading"
@@ -21,7 +21,7 @@
                 @update:process-success="saveFinish"
                 @click="onSave"
             >
-                {{ $tc('werkl-blog-author.detail.buttonSave') }}
+                {{ $t('werkl-blog-author.detail.buttonSave') }}
             </sw-button-process>
         </template>
 
@@ -30,7 +30,7 @@
                 <mt-card
                     v-if="blogAuthor"
                     :isLoading="isLoading"
-                    :title="$tc('werkl-blog-author.detail.title')"
+                    :title="$t('werkl-blog-author.detail.title')"
                 >
                     <sw-container
                         columns="2fr 4fr 4fr"
@@ -39,8 +39,8 @@
                         <sw-entity-single-select
                             class="werkl-blog-author-base-form__salutation-select"
                             entity="salutation"
-                            :label="$tc('werkl-blog-author.detail.salutation.label')"
-                            :placeholder="$tc('werkl-blog-author.detail.salutation.placeholder')"
+                            :label="$t('werkl-blog-author.detail.salutation.label')"
+                            :placeholder="$t('werkl-blog-author.detail.salutation.placeholder')"
                             :error="blogAuthorSalutationIdError"
                             labelProperty="displayName"
                             required
@@ -50,15 +50,15 @@
                         <mt-text-field
                             required
                             :error="blogAuthorFirstNameError"
-                            :placeholder="$tc('werkl-blog-author.detail.firstName.placeholder')"
-                            :label="$tc('werkl-blog-author.detail.firstName.label')"
+                            :placeholder="$t('werkl-blog-author.detail.firstName.placeholder')"
+                            :label="$t('werkl-blog-author.detail.firstName.label')"
                             v-model="blogAuthor.firstName"
                         />
                         <mt-text-field
                             required
                             :error="blogAuthorLastNameError"
-                            :placeholder="$tc('werkl-blog-author.detail.lastName.placeholder')"
-                            :label="$tc('werkl-blog-author.detail.lastName.label')"
+                            :placeholder="$t('werkl-blog-author.detail.lastName.placeholder')"
+                            :label="$t('werkl-blog-author.detail.lastName.label')"
                             v-model="blogAuthor.lastName"
                         />
                     </sw-container>
@@ -68,15 +68,15 @@
                     >
                         <mt-text-field
                             :error="blogAuthorDisplayNameError"
-                            :placeholder="$tc('werkl-blog-author.detail.displayName.placeholder')"
-                            :label="$tc('werkl-blog-author.detail.displayName.label')"
+                            :placeholder="$t('werkl-blog-author.detail.displayName.placeholder')"
+                            :label="$t('werkl-blog-author.detail.displayName.label')"
                             v-model="blogAuthor.displayName"
                         />
                         <mt-text-field
                             required
                             :error="blogAuthorEmailError"
-                            :placeholder="$tc('werkl-blog-author.detail.email.placeholder')"
-                            :label="$tc('werkl-blog-author.detail.email.label')"
+                            :placeholder="$t('werkl-blog-author.detail.email.placeholder')"
+                            :label="$t('werkl-blog-author.detail.email.label')"
                             v-model="blogAuthor.email"
                         />
                     </sw-container>
@@ -85,8 +85,8 @@
                         gap="32px"
                     >
                         <sw-text-editor
-                            :label="$tc('werkl-blog-author.detail.description.label')"
-                            :placeholder="$tc('werkl-blog-author.detail.description.placeholder')"
+                            :label="$t('werkl-blog-author.detail.description.label')"
+                            :placeholder="$t('werkl-blog-author.detail.description.placeholder')"
                             :error="blogAuthorDescriptionError"
                             v-model:value="blogAuthor.description"
                         >
@@ -104,9 +104,9 @@
                         defaultFolder="werkl_blog_author"
                         :disabled="isLoading"
                         :fileAccept="fileAccept"
-                        :label="$tc('werkl-blog-author.detail.media.label')"
+                        :label="$t('werkl-blog-author.detail.media.label')"
                         :uploadTag="blogAuthor.id"
-                        :caption="$tc('sw-cms.elements.general.config.caption.mediaUpload')"
+                        :caption="$t('sw-cms.elements.general.config.caption.mediaUpload')"
                         :source="blogAuthor.mediaId"
                         @media-upload-remove-image="onRemoveMediaItem"
                         @media-drop="onMediaDropped"

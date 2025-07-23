@@ -1,6 +1,6 @@
 import template from './blog-extension-component-sections.html.twig';
 
-const { State } = Shopware;
+const { Store } = Shopware;
 
 export default {
     template,
@@ -14,7 +14,7 @@ export default {
 
     computed: {
         componentSections() {
-            return State.get('extensionComponentSections').identifier[this.positionIdentifier] ?? [];
+            return Store.get('extensionComponentSections').identifier[this.positionIdentifier] ?? [];
         },
     },
 };

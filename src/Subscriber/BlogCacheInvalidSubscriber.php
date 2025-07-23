@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Werkl\OpenBlogware\Subscriber;
 
-use Shopware\Core\Content\Category\SalesChannel\CachedCategoryRoute;
 use Shopware\Core\Content\Cms\CmsPageEvents;
 use Shopware\Core\Content\Seo\Event\SeoEvents;
 use Shopware\Core\Content\Seo\SeoUrlUpdater;
@@ -129,7 +128,7 @@ class BlogCacheInvalidSubscriber implements EventSubscriberInterface
 
         // invalidates the category route cache when a category changed
         $this->cacheInvalidator->invalidate(
-            array_map([CachedCategoryRoute::class, 'buildName'], $catIds)
+            []
         );
     }
 

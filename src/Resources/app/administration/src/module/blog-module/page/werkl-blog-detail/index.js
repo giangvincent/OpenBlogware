@@ -3,12 +3,15 @@ import template from './werkl-blog-detail.html.twig';
 import BLOG from '../../constant/open-blogware.constant';
 
 const {
+    Component,
     Data,
     Utils,
     Classes,
     ExtensionAPI,
+    Store,
     State,
     Context,
+    Mixin
 } = Shopware;
 const { Criteria } = Data;
 const { debounce } = Utils;
@@ -31,6 +34,12 @@ export default {
         };
     },
 
+    mixins: [
+        Mixin.getByName('cms-state'),
+        Mixin.getByName('notification'),
+        Mixin.getByName('placeholder'),
+    ],
+
     computed: {
         identifier() {
             return this.placeholder(this.blog, 'title');
@@ -38,6 +47,42 @@ export default {
 
         blogRepository() {
             return this.repositoryFactory.create('werkl_blog_entries');
+        },
+
+        mediaRepository() {
+            return this.repositoryFactory.create('media');
+        },
+
+        cmsBlocks() {
+            return this.cmsService.getCmsBlockRegistry();
+        },
+
+        sectionRepository() {
+            return this.repositoryFactory.create('cms_section');
+        },
+
+        blockRepository() {
+            return this.repositoryFactory.create('cms_block');
+        },
+
+        slotRepository() {
+            return this.repositoryFactory.create('cms_slot');
+        },
+
+        blockConfigDefaults() {
+            return {
+                name: null,
+                marginBottom: null,
+                marginTop: null,
+                marginLeft: null,
+                marginRight: null,
+                sizingMode: 'boxed',
+                visibility: {
+                    desktop: true,
+                    tablet: true,
+                    mobile: true,
+                },
+            };
         },
 
         localeRepository() {
@@ -95,7 +140,7 @@ export default {
             this.publishExtensionData();
             Shopware.Store.get('adminMenu').collapseSidebar();
 
-            const isSystemDefaultLanguage = State.getters['context/isSystemDefaultLanguage'];
+            const isSystemDefaultLanguage = Shopware.Store.get('context').isSystemDefaultLanguage;
             this.cmsPageState.setIsSystemDefaultLanguage(isSystemDefaultLanguage);
 
             this.resetCmsPageState();
@@ -106,12 +151,12 @@ export default {
 
                 const defaultStorefrontId = '8A243080F92E4C719546314B577CF82B';
 
-                Shopware.State.commit('shopwareApps/setSelectedIds', [this.pageId]);
+                Shopware.Store.get('shopwareApps').selectedIds = [
+                    this.pageId,
+                ];
 
                 const criteria = new Criteria(1, 25);
-                criteria.addFilter(
-                    Criteria.equals('typeId', defaultStorefrontId),
-                );
+                criteria.addFilter(Criteria.equals('typeId', defaultStorefrontId));
 
                 this.salesChannelRepository.search(criteria).then((response) => {
                     this.salesChannels = response;
@@ -143,7 +188,7 @@ export default {
          * Debounced wrapper for the savePage function
          */
         debouncedPageSave: debounce(function debouncedOnSave() {
-            this.onSave();
+            this.onSaveBlog();
         }, debounceTimeout),
 
         loadBlog(blogId) {
@@ -152,6 +197,12 @@ export default {
             return this.blogRepository.get(blogId, Context.api, this.loadBlogCriteria).then((entity) => {
                 this.blog = entity;
                 this.originalSlug = entity.slug;
+
+                if (this.blog.translated.mediaId) {
+                    this.mediaRepository.get(this.blog.translated.mediaId).then((media) => {
+                        this.blog.media = media;
+                    });
+                }
 
                 if (entity.cmsPageId) {
                     this.page = entity.cmsPage;
@@ -196,7 +247,7 @@ export default {
 
             return this.salesChannelRepository.search(new Criteria()).then((response) => {
                 this.salesChannels = response;
-                const isSystemDefaultLanguage = State.getters['context/isSystemDefaultLanguage'];
+                const isSystemDefaultLanguage = Store.getters['context/isSystemDefaultLanguage'];
                 this.cmsPageState.setIsSystemDefaultLanguage(isSystemDefaultLanguage);
                 return this.loadBlog(this.blogId);
             });
@@ -246,7 +297,7 @@ export default {
         onSaveBlog() {
             if (!this.blogIsValid()) {
                 this.createNotificationError({
-                    message: this.$tc('werkl-blog.detail.notification.error.pageInvalid'),
+                    message: this.$t('werkl-blog.detail.notification.error.pageInvalid'),
                 });
 
                 return Promise.reject();
@@ -254,7 +305,7 @@ export default {
 
             if (!this.pageIsValid()) {
                 this.createNotificationError({
-                    message: this.$tc('werkl-blog.detail.notification.error.pageInvalid'),
+                    message: this.$t('werkl-blog.detail.notification.error.pageInvalid'),
                 });
 
                 return Promise.reject();
@@ -310,7 +361,7 @@ export default {
         },
 
         blogIsValid() {
-            State.dispatch('error/resetApiErrors');
+            this.$store.dispatch('error/resetApiErrors');
 
             return [
                 this.missingTitleValidation(),
@@ -327,7 +378,7 @@ export default {
 
             this.addBlogError({
                 property: 'title',
-                message: this.$tc('sw-cms.detail.notification.messageMissingFields'),
+                message: this.$t('sw-cms.detail.notification.messageMissingFields'),
             });
 
             return false;
@@ -340,7 +391,7 @@ export default {
 
             this.addBlogError({
                 property: 'publishedAt',
-                message: this.$tc('sw-cms.detail.notification.messageMissingFields'),
+                message: this.$t('sw-cms.detail.notification.messageMissingFields'),
             });
 
             return false;
@@ -353,7 +404,7 @@ export default {
 
             this.addBlogError({
                 property: 'authorId',
-                message: this.$tc('sw-cms.detail.notification.messageMissingFields'),
+                message: this.$t('sw-cms.detail.notification.messageMissingFields'),
             });
 
             return false;
@@ -366,7 +417,7 @@ export default {
 
             this.addBlogError({
                 property: 'blogCategories',
-                message: this.$tc('sw-cms.detail.notification.messageMissingFields'),
+                message: this.$t('sw-cms.detail.notification.messageMissingFields'),
             });
 
             return false;
@@ -399,7 +450,7 @@ export default {
                 meta: { parameters: payload },
             });
 
-            State.commit('error/addApiError', {
+            this.$store.commit('error/addApiError', {
                 expression,
                 error,
             });

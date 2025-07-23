@@ -1,2 +1,0 @@
-const e=`{% block werkl_cms_element_blog_listing %} <div class="werkl-cms-el-blog-listing"> <h2> {{ $t('werkl-blog.elements.listing.component.elementHeadline') }} </h2> <mt-banner variant="info"> {{ $t('werkl-blog.elements.listing.component.infoText') }} </mt-banner> </div> {% endblock %}`,{Mixin:n}=Shopware,t={template:e,mixins:[n.getByName("cms-element")],created(){this.createdComponent()},methods:{createdComponent(){this.initElementConfig("blog")}}};export{t as default};
-//# sourceMappingURL=index-BdXtrSrZ.js.map

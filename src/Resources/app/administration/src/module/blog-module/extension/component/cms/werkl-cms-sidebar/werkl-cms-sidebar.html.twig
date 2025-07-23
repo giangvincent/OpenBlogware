@@ -3,7 +3,7 @@
         ref="sidebarItem"
         icon="regular-info-circle"
         badge-type="error"
-        :title="$tc('werkl-blog.detail.sidebar.heading')"
+        :title="$t('werkl-blog.detail.sidebar.heading')"
         :has-simple-badge="OpenBlogwareDetailError"
         :disabled="page.locked || disabled"
     >
@@ -12,7 +12,7 @@
             {% block werkl_blog_cms_sidebar_page_basic_information_header %}
             <template #header>
                 <span>
-                    {{ $tc('werkl-blog.detail.sidebar.basicInformation') }}
+                    {{ $t('werkl-blog.detail.sidebar.basicInformation') }}
                 </span>
             </template>
             {% endblock %}
@@ -25,8 +25,8 @@
                         required
                         name="sw-field--blog-title"
                         v-model="blog.title"
-                        :label="$tc('werkl-blog.detail.titleLabel')"
-                        :placeholder="$tc('werkl-blog.detail.titlePlaceholder')"
+                        :label="$t('werkl-blog.detail.titleLabel')"
+                        :placeholder="$t('werkl-blog.detail.titlePlaceholder')"
                         :error="blogTitleError"
                     ></mt-text-field>
                     {% endblock %}
@@ -37,9 +37,9 @@
                         disabled
                         name="sw-field--blog-slug"
                         v-model="blog.slug"
-                        :label="$tc('werkl-blog.detail.slugLabel')"
+                        :label="$t('werkl-blog.detail.slugLabel')"
                         :error="blogSlugError"
-                        :placeholder="$tc('werkl-blog.detail.slugPlaceholder')"
+                        :placeholder="$t('werkl-blog.detail.slugPlaceholder')"
                     ></mt-text-field>
                     {% endblock %}
                     <div class="sw-field">
@@ -57,8 +57,8 @@
                         type="textarea"
                         name="sw-field--blog-teaser"
                         v-model="blog.teaser"
-                        :label="$tc('werkl-blog.detail.teaserLabel')"
-                        :placeholder="$tc('werkl-blog.detail.teaserPlaceholder')"
+                        :label="$t('werkl-blog.detail.teaserLabel')"
+                        :placeholder="$t('werkl-blog.detail.teaserPlaceholder')"
                         :error="blogTeaserError"
                     ></mt-textarea>
                     {% endblock %}
@@ -72,7 +72,7 @@
                 </sw-upload-listener>
                     <sw-media-compact-upload-v2
                         variant="regular"
-                        :label="$tc('werkl-blog.detail.teaserImageLabel')"
+                        :label="$t('werkl-blog.detail.teaserImageLabel')"
                         :source="mediaItem"
                         :uploadTag="blog.id"
                         :defaultFolder="blog.getEntityName()"
@@ -94,7 +94,7 @@
             {% block werkl_blog_cms_sidebar_page_settings_header %}
             <template #header>
                 <span>
-                    {{ $tc('werkl-blog.detail.sidebar.settings') }}
+                    {{ $t('werkl-blog.detail.sidebar.settings') }}
                 </span>
             </template>
             {% endblock %}
@@ -108,7 +108,7 @@
                             type="switch"
                             class="werkl-field--switch"
                             name="sw-field--blog-active"
-                            :label="$tc('werkl-blog.detail.visibility.label')"
+                            :label="$t('werkl-blog.detail.visibility.label')"
                             v-model="blog.active"
                         >
                     </mt-switch>
@@ -119,7 +119,7 @@
                             type="switch"
                             class="werkl-field--switch"
                             name="sw-field--blog-detailTeaser"
-                            :label="$tc('werkl-blog.detail.detailTeaser.label')"
+                            :label="$t('werkl-blog.detail.detailTeaser.label')"
                             v-model="blog.detailTeaserImage"
                         >
                     </mt-switch>
@@ -131,7 +131,7 @@
                         dateType="date"
                         v-model="blog.publishedAt"
                         name="sw-field--blog-publishedAt"
-                        :label="$tc('werkl-blog.detail.publishedAtLabel')"
+                        :label="$t('werkl-blog.detail.publishedAtLabel')"
                         :error="blogPublishedAtError"
                     ></mt-datepicker>
                     {% endblock %}
@@ -144,8 +144,8 @@
                         labelProperty="translated.name"
                         class="werkl-field--author"
                         entity="werkl_blog_author"
-                        :label="$tc('werkl-blog.detail.author.label')"
-                        :placeholder="$tc('werkl-blog.detail.author.placeholder')"
+                        :label="$t('werkl-blog.detail.author.label')"
+                        :placeholder="$t('werkl-blog.detail.author.placeholder')"
                         :error="blogAuthorIdError"
                     >
                         <template
@@ -173,8 +173,8 @@
                         v-model:value="blogSalesChannelIds"
                         :repository="salesChannelRepository"
                         class="werkl-field--sales-channels"
-                        :label="$tc('werkl-blog.detail.salesChannels.labelSalesChannels')"
-                        :placeholder="$tc('werkl-blog.detail.salesChannels.placeholderSalesChannels')"
+                        :label="$t('werkl-blog.detail.salesChannels.labelSalesChannels')"
+                        :placeholder="$t('werkl-blog.detail.salesChannels.placeholderSalesChannels')"
                     ></sw-entity-multi-id-select>
                     {% endblock %}
 
@@ -184,8 +184,8 @@
                         v-model:value="blog.blogCategories"
                         class="werkl-field--category"
                         name="sw-field--blog-categories"
-                        :label="$tc('werkl-blog.detail.category.label')"
-                        :placeholder="$tc('werkl-blog.detail.category.placeholder')"
+                        :label="$t('werkl-blog.detail.category.label')"
+                        :placeholder="$t('werkl-blog.detail.category.placeholder')"
                         :error="blogBlogCategoriesError"
                         :categoriesCollection="blog.blogCategories"
                     ></werkl-blog-category-tree-field>
@@ -195,8 +195,8 @@
                         v-if="blog && !isLoading"
                         v-model:entityCollection="blog.tags"
                         class="sw-blog-detail-base__tags"
-                        :label="$tc('werkl-blog.detail.tagsLabel')"
-                        :placeholder="$tc('werkl-blog.detail.tagsPlaceholder')"
+                        :label="$t('werkl-blog.detail.tagsLabel')"
+                        :placeholder="$t('werkl-blog.detail.tagsPlaceholder')"
                     />
                     {% endblock %}
                 </div>
@@ -210,7 +210,7 @@
             {% block werkl_blog_cms_sidebar_page_serp_header %}
             <template #header>
                 <span>
-                    {{ $tc('werkl-blog.detail.serp.title') }}
+                    {{ $t('werkl-blog.detail.serp.title') }}
                 </span>
             </template>
             {% endblock %}
@@ -230,7 +230,7 @@
                         v-model="blog.metaTitle"
                         :maxlength="maximumMetaTitleCharacter"
                         name="sw-field--blog-metaTitle"
-                        :placeholder="$tc('werkl-blog.detail.serp.metaTitle')"
+                        :placeholder="$t('werkl-blog.detail.serp.metaTitle')"
                     ></mt-text-field>
                     {% endblock %}
 
@@ -240,7 +240,7 @@
                         v-model="blog.metaDescription"
                         :maxlength="maximumMetaDescriptionCharacter"
                         name="sw-field--blog-metaDescription"
-                        :placeholder="$tc('werkl-blog.detail.serp.metaDescription')"
+                        :placeholder="$t('werkl-blog.detail.serp.metaDescription')"
                     ></mt-textarea>
                     {% endblock %}
                 </div>

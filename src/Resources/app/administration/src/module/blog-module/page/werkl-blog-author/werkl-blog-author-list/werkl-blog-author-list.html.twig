@@ -3,7 +3,7 @@
         <template #smart-bar-header>
             <h2>
                 {% block werkl_blog_author_list_smart_bar_header_title_text %}
-                {{ $tc('werkl-blog-author.list.textBlogOverview') }}
+                {{ $t('werkl-blog-author.list.textBlogOverview') }}
                 {% endblock %}
 
             {% block werkl_blog_author_list_smart_bar_header_amount %}
@@ -27,7 +27,7 @@
                 :router-link="{ name: 'blog.module.author.create' }"
                 variant="primary"
             >
-                {{ $tc('werkl-blog-author.list.buttonAdd') }}
+                {{ $t('werkl-blog-author.list.buttonAdd') }}
             </mt-button>
             {% endblock %}
         </template>
@@ -99,9 +99,9 @@
         {% block werkl_blog_author_list_empty_state %}
             <sw-empty-state
                 v-if="!isLoading && !total"
-                :title="$tc('werkl-blog-author.list.messageEmpty')"
+                :title="$t('werkl-blog-author.list.messageEmpty')"
             >
-                {{ $tc('werkl-blog-author.list.messageEmpty') }}
+                {{ $t('werkl-blog-author.list.messageEmpty') }}
             </sw-empty-state>
             {% endblock %}
         </template>

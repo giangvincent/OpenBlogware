@@ -98,7 +98,7 @@ export default {
 
             this.blogAuthorRepository.get(
                 this.$route.params.id,
-                Shopware.Context.api,
+                Shopware.Store.get('context').api,
                 this.defaultCriteria,
             ).then((blogAuthor) => {
                 this.blogAuthor = blogAuthor;
@@ -114,18 +114,18 @@ export default {
             this.isLoading = true;
             this.isSaveSuccessful = false;
 
-            return this.blogAuthorRepository.save(this.blogAuthor, Shopware.Context.api).then(() => {
+            return this.blogAuthorRepository.save(this.blogAuthor, Shopware.Store.get('context').api).then(() => {
                 this.isLoading = false;
                 this.isSaveSuccessful = true;
                 this.createNotificationSuccess({
-                    message: this.$tc('werkl-blog-author.detail.messageSaveSuccess', 0, {
+                    message: this.$t('werkl-blog-author.detail.messageSaveSuccess', 0, {
                         name: `${this.blogAuthor.firstName} ${this.blogAuthor.lastName}`,
                     }),
                 });
                 this.$router.push({ name: 'blog.module.author.detail', params: { id: this.blogAuthor.id } });
             }).catch((exception) => {
                 this.createNotificationError({
-                    message: this.$tc('global.notification.unspecifiedSaveErrorMessage'),
+                    message: this.$t('global.notification.unspecifiedSaveErrorMessage'),
                 });
                 this.isLoading = false;
                 throw exception;
@@ -137,7 +137,7 @@ export default {
         },
 
         onSetMediaItem({ targetId }) {
-            this.mediaRepository.get(targetId, Shopware.Context.api).then((updatedMedia) => {
+            this.mediaRepository.get(targetId, Shopware.Store.get('context').api).then((updatedMedia) => {
                 this.blogAuthor.mediaId = targetId;
                 this.blogAuthor.media = updatedMedia;
             });
