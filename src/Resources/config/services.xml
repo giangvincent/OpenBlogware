@@ -64,6 +64,8 @@
             <argument type="service" id="event_dispatcher"/>
             <argument id="Shopware\Core\Content\Cms\SalesChannel\SalesChannelCmsPageLoader" type="service"/>
             <argument id="werkl_blog_entries.repository" type="service"/>
+            <argument type="service" id="Shopware\Storefront\Pagelet\Header\HeaderPageletLoader" />
+
         </service>
 
         <!-- Controller -->
@@ -71,7 +73,8 @@
             <argument type="service" id="Werkl\OpenBlogware\Controller\CachedBlogController.inner"/>
             <argument type="service" id="cache.object"/>
             <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\Cache\EntityCacheKeyGenerator"/>
-
+            <argument type="service" id="event_dispatcher"/>
+            
             <call method="setContainer">
                 <argument type="service" id="service_container"/>
             </call>
@@ -83,15 +86,13 @@
             <call method="setContainer">
                 <argument type="service" id="service_container"/>
             </call>
-            <call method="setTwig">
-                <argument type="service" id="twig"/>
-            </call>
         </service>
 
         <service id="Werkl\OpenBlogware\Controller\CachedBlogSearchController" decorates="Werkl\OpenBlogware\Controller\BlogSearchController" decoration-priority="-1000" public="true">
             <argument type="service" id="Werkl\OpenBlogware\Controller\CachedBlogSearchController.inner"/>
             <argument type="service" id="cache.object"/>
             <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\Cache\EntityCacheKeyGenerator"/>
+            <argument type="service" id="event_dispatcher"/>
 
             <call method="setContainer">
                 <argument type="service" id="service_container"/>
@@ -110,6 +111,7 @@
             <argument type="service" id="Werkl\OpenBlogware\Controller\CachedBlogRssController.inner"/>
             <argument type="service" id="cache.object"/>
             <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\Cache\EntityCacheKeyGenerator"/>
+            <argument type="service" id="event_dispatcher"/>
 
             <call method="setContainer">
                 <argument type="service" id="service_container"/>
