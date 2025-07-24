@@ -1,64 +1,33 @@
 {% block werkl_cms_element_blog_listing_config %}
-    <div class="sw-cms-el-config-blog">
-        {% block werkl_cms_element_blog_listing_config_paginationCount_field %}
-        <mt-number-field
-            numberType="int"
-            :step="1"
-            :min="1"
-            :max="null"
-            v-model="element.config.paginationCount.value"
-            :digits="2"
-            :allowEmpty="false"
-            :label="$t('werkl-blog.elements.listing.config.paginationCount')"
-        >
-    </mt-number-field>
-        {% endblock %}
+	<div class="sw-cms-el-config-blog">
+		{% block werkl_cms_element_blog_listing_config_paginationCount_field %}
+			<mt-number-field numbertype="int" :step="1" :min="1" :max="null" v-model="element.config.paginationCount.value" :digits="2" :allowempty="false" :label="$t('werkl-blog.elements.listing.config.paginationCount')"></mt-number-field>
+		{% endblock %}
 
-    {% block werkl_cms_element_blog_listing_config_show_type %}
-        <mt-select
-            :label="$t('werkl-blog.elements.listing.config.showType.label')"
-            v-model="element.config.showType.value"
-            :options="[{"
-            label":"{{
-            $t('werkl-blog.elements.listing.config.showType.options.all')
-            }}","value":"all"},{"label":"{{
-            $t('werkl-blog.elements.listing.config.showType.options.select')
-            }}","value":"select"}]"
-        ></mt-select>
-        {% endblock %}
+		{% block werkl_cms_element_blog_listing_config_show_type %}
+			<mt-select :label="$t('werkl-blog.elements.listing.config.showType.label')" v-model="element.config.showType.value" :options="[
+			        {
+			            label: $t('werkl-blog.elements.listing.config.showType.options.all'),
+			            value: 'all'
+			        },
+			        {
+			            label: $t('werkl-blog.elements.listing.config.showType.options.select'),
+			            value: 'select'
+			        }
+			    ]"/>
+
+		{% endblock %}
 
 
-    {% block werkl_cms_element_blog_listing_config_select_categories %}
-        <werkl-blog-category-tree-field
-            v-if="element.config.showType.value !== 'all' && selectedCategories"
-            v-model:value="selectedCategories"
-            :label="$t('werkl-blog.elements.listing.config.blogCategories.label')"
-            :categoriesCollection="selectedCategories"
-            class="sw-product-detail__select-category"
-            :placeholder="$t('werkl-blog.elements.listing.config.blogCategories.placeholder')"
-        >
-    </werkl-blog-category-tree-field>
-        {% endblock %}
+		{% block werkl_cms_element_blog_listing_config_select_categories %}
+			<werkl-blog-category-tree-field v-if="element.config.showType.value !== 'all' && selectedCategories" v-model="selectedCategories" :label="$t('werkl-blog.elements.listing.config.blogCategories.label')" :categoriesCollection="selectedCategories" class="sw-product-detail__select-category" :placeholder="$t('werkl-blog.elements.listing.config.blogCategories.placeholder')"></werkl-blog-category-tree-field>
+		{% endblock %}
 
-    {% block werkl_cms_element_blog_listing_config_show_filter_select %}
-        <mt-card
-            :title="$t('werkl-blog.elements.listing.config.showFilter.label')"
-            :hero="false"
-            :isLoading="false"
-            :large="false"
-            class="sw-blog-config-filter"
-        >
-            <mt-checkbox
-                :label="$t('werkl-blog.elements.listing.config.showFilter.options.filter.category')"
-                v-model:checked="element.config.showCategoryFilter.value"
-            >
-        </mt-checkbox>
-            <mt-checkbox
-                :label="$t('werkl-blog.elements.listing.config.showFilter.options.filter.author')"
-                v-model:checked="element.config.showAuthorFilter.value"
-            >
-        </mt-checkbox>
-        </mt-card>
-        {% endblock %}
-    </div>
+		{% block werkl_cms_element_blog_listing_config_show_filter_select %}
+			<mt-card :title="$t('werkl-blog.elements.listing.config.showFilter.label')" :hero="false" :isloading="false" :large="false" class="sw-blog-config-filter">
+				<mt-checkbox :label="$t('werkl-blog.elements.listing.config.showFilter.options.filter.category')" v-model:checked="element.config.showCategoryFilter.value"></mt-checkbox>
+				<mt-checkbox :label="$t('werkl-blog.elements.listing.config.showFilter.options.filter.author')" v-model:checked="element.config.showAuthorFilter.value"></mt-checkbox>
+			</mt-card>
+		{% endblock %}
+	</div>
 {% endblock %}

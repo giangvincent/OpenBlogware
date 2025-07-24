@@ -4,7 +4,7 @@
     "name": "open-blogware.constant"
   },
   "main.js": {
-    "file": "assets/werkl-open-blogware-DBoS-ne3.js",
+    "file": "assets/werkl-open-blogware-Ci9Y2HEG.js",
     "name": "werkl-open-blogware",
     "src": "main.js",
     "isEntry": true,
@@ -268,7 +268,7 @@
     ]
   },
   "module/blog-module/elements/blog/config/index.js": {
-    "file": "assets/index-CClsXkRg.js",
+    "file": "assets/index-B6Rp8TP5.js",
     "name": "index",
     "src": "module/blog-module/elements/blog/config/index.js",
     "isDynamicEntry": true,

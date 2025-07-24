@@ -9,8 +9,8 @@
         resetAllButtonText: 'werkl-blog.listing.filterPanelResetAll'|trans|sw_sanitize
     }
 } %}
-
 {% block werkl_blog_listing %}
+{{dump(searchResult)}}
     <div class="cms-element-product-listing-wrapper"
          data-listing-pagination="true"
          data-listing-pagination-options='{{ paginationConfig }}'

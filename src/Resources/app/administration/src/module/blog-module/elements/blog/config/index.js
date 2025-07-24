@@ -40,7 +40,7 @@ export default {
         selectedCategories: {
             handler(value) {
                 this.element.config.blogCategories.value = value.getIds();
-                this.$set(this.element.data, 'blogCategories', value);
+                this.element.data.blogCategories = value;
                 this.$emit('element-update', this.element);
             },
         },
@@ -69,7 +69,7 @@ export default {
             } else {
                 this.selectedCategories = new EntityCollection(
                     this.blogCategoryRepository.route,
-                    this.blogCategoryRepository.schema.entity,
+                    'werkl_blog_category',
                     Shopware.Store.get('context').api,
                     new Criteria(),
                 );
