@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Werkl\OpenBlogware\Migration;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Exception;
 use Shopware\Core\Defaults;
 use Shopware\Core\Framework\Migration\MigrationStep;
 use Shopware\Core\Framework\Uuid\Uuid;
@@ -16,6 +17,9 @@ class Migration1605031477CreateWerklBlogAuthorTable extends MigrationStep
         return 1605031477;
     }
 
+    /**
+     * @throws Exception
+     */
     public function update(Connection $connection): void
     {
         $connection->executeStatement('

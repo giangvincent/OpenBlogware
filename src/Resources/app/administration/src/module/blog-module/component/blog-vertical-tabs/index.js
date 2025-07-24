@@ -10,9 +10,29 @@ export default {
         },
     },
 
+    data() {
+        return {
+            blogTabs: [
+                {
+                    'label': this.$t('werkl-blog.general.mainMenuItemList'),
+                    'name': 'blog',
+                }, {
+                    'label': this.$t('werkl-blog-author.general.mainMenuItemList'),
+                    'name': 'author',
+                }]
+        };
+    },
+
     methods: {
         onChangeTab(name) {
             this.currentTab = name;
+            if (name === 'blog') {
+                this.$router.push({name: 'blog.module.index'})
+            }
+
+            if (name === 'author') {
+                this.$router.push({name: 'blog.module.author.index'})
+            }
         },
     },
 };

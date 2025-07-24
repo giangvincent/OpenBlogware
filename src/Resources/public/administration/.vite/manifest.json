@@ -4,7 +4,7 @@
     "name": "open-blogware.constant"
   },
   "main.js": {
-    "file": "assets/werkl-open-blogware-Ci9Y2HEG.js",
+    "file": "assets/werkl-open-blogware-CFd8PuFt.js",
     "name": "werkl-open-blogware",
     "src": "main.js",
     "isEntry": true,
@@ -145,13 +145,13 @@
     "isDynamicEntry": true
   },
   "module/blog-module/component/blog-tree-item/index.js": {
-    "file": "assets/index-CX7je6o8.js",
+    "file": "assets/index-Cpp-wPHR.js",
     "name": "index",
     "src": "module/blog-module/component/blog-tree-item/index.js",
     "isDynamicEntry": true
   },
   "module/blog-module/component/blog-vertical-tabs/index.js": {
-    "file": "assets/index-4ScKvgq_.js",
+    "file": "assets/index-DJAcGeUy.js",
     "name": "index",
     "src": "module/blog-module/component/blog-vertical-tabs/index.js",
     "isDynamicEntry": true
@@ -334,7 +334,7 @@
     ]
   },
   "module/blog-module/page/werkl-blog-author/werkl-blog-author-list/index.js": {
-    "file": "assets/index-bCSUoekf.js",
+    "file": "assets/index-BwfQSlNR.js",
     "name": "index",
     "src": "module/blog-module/page/werkl-blog-author/werkl-blog-author-list/index.js",
     "isDynamicEntry": true,
@@ -358,7 +358,7 @@
     ]
   },
   "module/blog-module/page/werkl-blog-list/index.js": {
-    "file": "assets/index-DaUk4WA6.js",
+    "file": "assets/index-BilngGZx.js",
     "name": "index",
     "src": "module/blog-module/page/werkl-blog-list/index.js",
     "isDynamicEntry": true,

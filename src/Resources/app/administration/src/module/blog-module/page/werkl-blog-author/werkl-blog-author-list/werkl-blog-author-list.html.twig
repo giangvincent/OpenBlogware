@@ -3,16 +3,11 @@
         <template #smart-bar-header>
             <h2>
                 {% block werkl_blog_author_list_smart_bar_header_title_text %}
-                {{ $t('werkl-blog-author.list.textBlogOverview') }}
+                    {{ $t('werkl-blog-author.list.textBlogOverview') }}
                 {% endblock %}
 
-            {% block werkl_blog_author_list_smart_bar_header_amount %}
-                <span
-                    v-if="!isLoading"
-                    class="sw-page__smart-bar-amount"
-                >
-            ({{ total }})
-            </span>
+                {% block werkl_blog_author_list_smart_bar_header_amount %}
+                    <span v-if="!isLoading" class="sw-page__smart-bar-amount">({{ total }})</span>
                 {% endblock %}
             </h2>
         </template>
@@ -21,16 +16,15 @@
             <sw-language-switch @on-change="changeLanguage"></sw-language-switch>
         </template>
         {% block werkl_blog_author_list_smart_bar_actions %}
-        <template #smart-bar-actions>
-            {% block werkl_blog_author_list_smart_bar_actions_add %}
-            <mt-button
-                :router-link="{ name: 'blog.module.author.create' }"
-                variant="primary"
-            >
-                {{ $t('werkl-blog-author.list.buttonAdd') }}
-            </mt-button>
-            {% endblock %}
-        </template>
+            <template #smart-bar-actions>
+                {% block werkl_blog_author_list_smart_bar_actions_add %}
+                    <mt-button @click="this.$router.push('new')"
+                            variant="primary"
+                    >
+                        {{ $t('werkl-blog-author.list.buttonAdd') }}
+                    </mt-button>
+                {% endblock %}
+            </template>
         {% endblock %}
         <template #sidebar>
             <werkl-blog-vertical-tabs :defaultItem="'author'"/>
@@ -38,71 +32,71 @@
 
         <template #content>
             {% block werkl_blog_author_list_content %}
-            <sw-entity-listing
-                v-if="blogAuthors"
-                :items="blogAuthors"
-                :repository="blogAuthorRepository"
-                :showSelection="false"
-                :columns="columns"
-                detailRoute="blog.module.author.detail"
-            >
-                {% block werkl_blog_author_list_columns_image_preview %}
-                <template #preview-fullName="{ item, compact }">
-                    <sw-avatar
-                        :size="compact ? '32px' : '48px'"
-                        :imageUrl="item.media ? item.media.url : null"
-                        :sourceContext="item"
-                        :firstName="item.firstName"
-                        :lastName="item.lastName"
-                    >
-                </sw-avatar>
-                </template>
-                {% endblock %}
-
-            {% block werkl_blog_author_list_grid_columns_name %}
-                <template
-                    #column-fullName="{ item, compact, isInlineEdit }"
+                <sw-entity-listing
+                        v-if="blogAuthors"
+                        :items="blogAuthors"
+                        :repository="blogAuthorRepository"
+                        :showSelection="false"
+                        :columns="columns"
+                        detailRoute="blog.module.author.detail"
                 >
-                    {% block werkl_blog_author_list_grid_inline_edit_name %}
-                    <template v-if="isInlineEdit">
-                        {% block werkl_blog_author_list_grid_inline_edit_first_name %}
-                        <mt-text-field
-                            class="werkl-blog-author-list__inline-edit-first-name"
-                            v-model="item.firstName"
-                            :size="compact ? 'small' : 'default'"
-                        />
-                        {% endblock %}
-
-                    {% block werkl_blog_author_list_grid_inline_edit_last_name %}
-                        <mt-text-field
-                            class="werkl-blog-author-list__inline-edit-last-name"
-                            v-model="item.lastName"
-                            :size="compact ? 'small' : 'default'"
-                        />
-                        {% endblock %}
-                    </template>
+                    {% block werkl_blog_author_list_columns_image_preview %}
+                        <template #preview-fullName="{ item, compact }">
+                            <sw-avatar
+                                    :size="compact ? '32px' : '48px'"
+                                    :imageUrl="item.media ? item.media.url : null"
+                                    :sourceContext="item"
+                                    :firstName="item.firstName"
+                                    :lastName="item.lastName"
+                            >
+                            </sw-avatar>
+                        </template>
                     {% endblock %}
 
-                {% block werkl_blog_author_list_grid_columns_name_link %}
-                    <router-link
-                        v-else
-                        :to="{ name: 'blog.module.author.detail', params: { id: item.id } }"
-                    >
-                    {{ item.firstName }} {{ item.lastName }}
-                </router-link>
+                    {% block werkl_blog_author_list_grid_columns_name %}
+                        <template
+                                #column-fullName="{ item, compact, isInlineEdit }"
+                        >
+                            {% block werkl_blog_author_list_grid_inline_edit_name %}
+                                <template v-if="isInlineEdit">
+                                    {% block werkl_blog_author_list_grid_inline_edit_first_name %}
+                                        <mt-text-field
+                                                class="werkl-blog-author-list__inline-edit-first-name"
+                                                v-model="item.firstName"
+                                                :size="compact ? 'small' : 'default'"
+                                        />
+                                    {% endblock %}
+
+                                    {% block werkl_blog_author_list_grid_inline_edit_last_name %}
+                                        <mt-text-field
+                                                class="werkl-blog-author-list__inline-edit-last-name"
+                                                v-model="item.lastName"
+                                                :size="compact ? 'small' : 'default'"
+                                        />
+                                    {% endblock %}
+                                </template>
+                            {% endblock %}
+
+                            {% block werkl_blog_author_list_grid_columns_name_link %}
+                                <router-link
+                                        v-else
+                                        :to="{ name: 'blog.module.author.detail', params: { id: item.id } }"
+                                >
+                                    {{ item.firstName }} {{ item.lastName }}
+                                </router-link>
+                            {% endblock %}
+                        </template>
                     {% endblock %}
-                </template>
-                {% endblock %}
-            </sw-entity-listing>
+                </sw-entity-listing>
             {% endblock %}
 
-        {% block werkl_blog_author_list_empty_state %}
-            <sw-empty-state
-                v-if="!isLoading && !total"
-                :title="$t('werkl-blog-author.list.messageEmpty')"
-            >
-                {{ $t('werkl-blog-author.list.messageEmpty') }}
-            </sw-empty-state>
+            {% block werkl_blog_author_list_empty_state %}
+                <sw-empty-state
+                        v-if="!isLoading && !total"
+                        :title="$t('werkl-blog-author.list.messageEmpty')"
+                >
+                    {{ $t('werkl-blog-author.list.messageEmpty') }}
+                </sw-empty-state>
             {% endblock %}
         </template>
     </sw-page>

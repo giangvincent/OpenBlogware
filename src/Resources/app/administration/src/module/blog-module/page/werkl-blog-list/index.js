@@ -27,8 +27,13 @@ export default {
             categoryId: null,
             blogEntries: null,
             total: 0,
-            isLoading: true,
             currentLanguageId: Shopware.Store.get('context').api.languageId,
+            isLoading: false,
+            cardViewIdentifier: 'grid.cms.sw-cms-list-grid',
+            sortBy: 'createdAt',
+            sortDirection: 'DESC',
+            associationLimit: 25,
+            term: '',
         };
     },
 
@@ -97,21 +102,28 @@ export default {
             }
         },
 
-        getList() {
+        async getList() {
             this.isLoading = true;
-            const criteria = new Criteria(this.page, this.limit);
-            criteria.addAssociation('blogAuthor');
-            criteria.addAssociation('blogCategories');
-            criteria.addAssociation('tags');
+            const listCriteria = new Criteria(this.page, this.limit);
+            listCriteria.addAssociation('blogAuthor');
+            listCriteria.addAssociation('blogCategories');
+            listCriteria.addAssociation('tags');
 
-            criteria.addSorting(Criteria.sort('publishedAt', 'DESC', false));
+            listCriteria.addSorting(Criteria.sort('publishedAt', 'DESC', false));
 
             if (this.categoryId) {
-                criteria.addFilter(Criteria.equals('blogCategories.id', this.categoryId));
+                listCriteria.addFilter(Criteria.equals('blogCategories.id', this.categoryId));
             }
+            const criteria = await this.addQueryScores(this.term, listCriteria);
+
+
             return this.blogEntriesRepository.search(criteria, Shopware.Store.get('context').api).then((result) => {
                 this.total = result.total;
                 this.blogEntries = result;
+                this.isLoading = false;
+
+                return this.blogEntries;
+            }).catch(() => {
                 this.isLoading = false;
             });
         },

@@ -1,11 +1,11 @@
 <mt-tabs
-    isVertical
+    vertical
     :defaultItem="defaultItem"
     :small="false"
     class="sw-blog__tabs"
     @new-item-active="onChangeTab"
     position-identifier="blog-vertical-tabs"
-    :items="[{'label':'{{ $t('werkl-blog.general.mainMenuItemList') }}','name':'blog'},{'label':'{{ $t('werkl-blog-author.general.mainMenuItemList') }}','name':'author'}]"
+    :items="blogTabs"
 >
-    
+
 </mt-tabs>
